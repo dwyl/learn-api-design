@@ -9,10 +9,12 @@ Joking aside, starting a project "***from scratch***" is a *opportunity*
 If you are *fortunate* enough to be
 in that position, do not take the task lightly.
 
+## Intro
 
+Having a *great* API will make or break your project/product.
 
-A few quotes from
-[Joshua Bloch](http://en.wikipedia.org/wiki/Joshua_Bloch)'s
+A few ***quotes*** from
+[**Joshua Bloch**](http://en.wikipedia.org/wiki/Joshua_Bloch)'s
 Google Talk on
 ["***How To Design A Good API and Why it Matters***"](http://youtu.be/heh4OeB9A-c)  
 and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](https://parse.com/products))
@@ -34,6 +36,9 @@ you are pretty much **stuck with it forever**.*" [3:12](http://youtu.be/heh4OeB9
 
 > "* You need to **be opinionated** even when **there is no right and wrong** *"
 [31:02](http://youtu.be/qCdpTji8nxo?t=31m2s)
+
+> "*Always make your REST API as **small/short as possible** *"
+[31:19](http://youtu.be/hdSrT4yjS1g?t=31m19s)
 
 ## Characteristics of a Good API
 
@@ -64,6 +69,21 @@ scalable web services.
 + Security
 + Encapsulation
 
+#### Verbs
+
++ **GET** = **read** an existing **record** or collection (list of records)
++ **POST** = **create** and ***partial*** update.
++ **PUT** = **create** and [***indepotent***](http://stackoverflow.com/a/1077489/1148249) update
+(always send **all** the fields required - not partial update)
++ **DELETE** = does exactly what it says
+
+##### Examples
+
++ **GET** /comment - Returns a list of all comments
++ **GET** /comment/:id - Returns a comment with the given id
++ **POST** /comment - Creates a new comment
++ **PUT** /comment/:id - Updates a comment with the given id
++ **DELETE** /comment/:id - Deletes a comment with the given id
 
 #### Reading / Watching
 
@@ -73,7 +93,7 @@ http://en.wikipedia.org/wiki/Representational_state_transfer
 + Best Practices for Designing a Pragmatic RESTful API
 http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
 + REST+JSON API Design - Best Practices for Developers
-http://youtu.be/hdSrT4yjS1g
+http://youtu.be/hdSrT4yjS1g (*comprehensive* overview)
 + Secure Your API - Tips for REST + JSON Developers
 http://youtu.be/FeSdFhsKGG0
 + PUT vs POST in REST:
@@ -129,6 +149,8 @@ http://www.salesforce.com/developer/docs/api_streaming/
 There is on-going debate on whether APIs should be versioned
 and if so, how should this be done.
 
+There are two primary approaches to versioning [32:43](http://youtu.be/hdSrT4yjS1g?t=32m43s)
+
 ### Intro Reading
 
 + Your API versioning is wrong:
@@ -168,11 +190,16 @@ Accept: application/vnd.haveibeenpwned.v2+json
 
 ## Caching
 
-
 + Caching API Requests:
 http://robots.thoughtbot.com/caching-api-requests
 + Caching your REST API
 http://restcookbook.com/Basics/caching/
++ API Caching
+http://www.fastly.com/blog/api-caching-part-1/
++ Caching and rate limiting:
+https://blog.apigee.com/detail/api_scalability_part_2_-_caching_rate_limits_and_offloading
++ Thoughtbot caching insights (mostly ruby-focussed):
+http://robots.thoughtbot.com/caching-api-requests
 
 
 ## General Background Reading + Watching
@@ -182,6 +209,7 @@ http://restcookbook.com/Basics/caching/
 @ General Assembly:  
 https://www.youtube.com/watch?v=FknvOGcLHmc (Google for Entrepreneurs - *absolute beginner*?)
 + Wikipedia: http://en.wikipedia.org/wiki/Application_programming_interface
++ The REST Cookbook: http://restcookbook.com (comprehensive guide)
 + How to Design Great APIs - Parse:
 https://www.youtube.com/watch?v=qCdpTji8nxo
 + How To Design A Good API and ***Why it Matters***:
