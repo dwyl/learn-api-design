@@ -85,12 +85,21 @@ scalable web services.
 + **PUT** /comment/:id - Updates a comment with the given id
 + **DELETE** /comment/:id - Deletes a comment with the given id
 
+#### Tips
+
+To reduce the amount of data retrieved,
+we can *specify* the exact fields we want in url e.g:
+```
+GET /accounts/1234/fields=firstname,surname,etc
+```
+see: [52:29](http://youtu.be/hdSrT4yjS1g?t=52m29s)
+
 #### Reading / Watching
 
 + **What** is **REST**?
 (if you haven't already read it, read the REST Wikipedia article):
 http://en.wikipedia.org/wiki/Representational_state_transfer
-+ Best Practices for Designing a Pragmatic RESTful API
++ Best Practices for Designing a Pragmatic RESTful API (***Great*** article)
 http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
 + REST+JSON API Design - Best Practices for Developers
 http://youtu.be/hdSrT4yjS1g (*comprehensive* overview)
@@ -99,13 +108,14 @@ http://youtu.be/FeSdFhsKGG0
 + PUT vs POST in REST:
 http://stackoverflow.com/questions/630453/put-vs-post-in-rest
 
-#### Examples
+#### Examples of Successful (Good) APIs
 
 + Parse REST API: https://www.parse.com/docs/rest
 (really good example of good interactive documentation)
 + GitHub: https://developer.github.com/
 + Twitter: https://dev.twitter.com/rest/public
 + Google: https://developers.google.com/custom-search/json-api/v1/using_rest
++ Stripe: https://stripe.com/docs/api
 
 #### Useful Resources
 
@@ -187,6 +197,10 @@ Accept: application/vnd.haveibeenpwned.v2+json
 ### Further Reading (Versioning)
 
 + Pivotal Labs API Versioning guide: http://pivotallabs.com/api-versioning/
++ SemVer: http://semver.org/
++ Stripe's API Versioning: https://stripe.com/docs/api#versioning
++ *Comprehensive* List of how others are doing versioning:
+http://www.lexicalscope.com/blog/2012/03/12/how-are-rest-apis-versioned/
 
 ## Caching
 
