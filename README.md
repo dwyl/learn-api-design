@@ -2,9 +2,14 @@
 
 Essential learning for people building their own API
 
-Starting a project "***from scratch***" is a opportunity
-(and privilege *few* people get). If you are *fortunate* enough to be
+![Grandma Remote](http://i.imgur.com/pdrRPjm.jpg)
+
+Joking aside, starting a project "***from scratch***" is a *opportunity*
+(and *privilege* *few* people get).  
+If you are *fortunate* enough to be
 in that position, do not take the task lightly.
+
+
 
 A few quotes from
 [Joshua Bloch](http://en.wikipedia.org/wiki/Joshua_Bloch)'s
@@ -23,7 +28,6 @@ and it can **inhibit** a company's **ability to move forward***"
 
 > "*Once you have a **bad** API, you **can't change it**,
 you are pretty much **stuck with it forever**.*" [3:12](http://youtu.be/heh4OeB9A-c?t=2m51s)
-
 
 > "* ... **A good API** needs to appeal to the most powerful emotion: **Laziness***".
 [3:23](http://youtu.be/qCdpTji8nxo?t=3m23s)
@@ -47,8 +51,31 @@ you are pretty much **stuck with it forever**.*" [3:12](http://youtu.be/heh4OeB9
 
 ### REST
 
-#### Reading
+**Representational State Transfer** (**REST**) is a software architecture
+style consisting of guidelines and best practices for creating
+scalable web services.
 
+#### Why REST?
+
++ Scalability (dissemination - more people use your API)
++ Generality
++ Independence
++ Latency (Caching)
++ Security
++ Encapsulation
+
+
+#### Reading / Watching
+
++ **What** is **REST**?
+(if you haven't already read it, read the REST Wikipedia article):
+http://en.wikipedia.org/wiki/Representational_state_transfer
++ Best Practices for Designing a Pragmatic RESTful API
+http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
++ REST+JSON API Design - Best Practices for Developers
+http://youtu.be/hdSrT4yjS1g
++ Secure Your API - Tips for REST + JSON Developers
+http://youtu.be/FeSdFhsKGG0
 + PUT vs POST in REST:
 http://stackoverflow.com/questions/630453/put-vs-post-in-rest
 
@@ -57,6 +84,8 @@ http://stackoverflow.com/questions/630453/put-vs-post-in-rest
 + Parse REST API: https://www.parse.com/docs/rest
 (really good example of good interactive documentation)
 + GitHub: https://developer.github.com/
++ Twitter: https://dev.twitter.com/rest/public
++ Google: https://developers.google.com/custom-search/json-api/v1/using_rest
 
 #### Useful Resources
 
@@ -73,7 +102,7 @@ http://swagger.io
 
 #### Reading
 
-+ **Q**: Can I use WebSockets? http://caniuse.com/#feat=websockets  
++ **Q**: Can we use WebSockets? http://caniuse.com/#feat=websockets  
 **Answer**: ***YES***! IE 10+, Safari/iOS Safari 7.1+, Android 4.4+ & Android Chrome
 + About WebSockets: https://www.websocket.org/aboutwebsocket.html
 + WebSocket MDN: https://developer.mozilla.org/en/docs/WebSockets
@@ -93,14 +122,22 @@ https://dev.twitter.com/streaming/overview
 http://www.salesforce.com/developer/docs/api_streaming/
 
 
-## Versioning your API
+## Versioning your API?
+
+![API Versioning](http://i.imgur.com/lu5DhRy.jpg)
+
+There is on-going debate on whether APIs should be versioned
+and if so, how should this be done.
+
+### Intro Reading
 
 + Your API versioning is wrong:
 http://www.troyhunt.com/2014/02/your-api-versioning-is-wrong-which-is.html
 + The debate on API versioning:
 http://stackoverflow.com/questions/389169/best-practices-for-api-versioning
-+ Pivotal Labs API Versioning guide: http://pivotallabs.com/api-versioning/
 + Issues with API version in the URL/URI:
+https://www.mnot.net/blog/2012/12/04/api-evolution
++ Evolving HTTP APIs
 https://www.mnot.net/blog/2012/12/04/api-evolution
 
 ### Wrong way 1 – URL versioning
@@ -125,12 +162,25 @@ HTTP GET:
 https://haveibeenpwned.com/api/breachedaccount/foo
 Accept: application/vnd.haveibeenpwned.v2+json
 ```
+### Further Reading (Versioning)
 
-## Background Reading + Watching
++ Pivotal Labs API Versioning guide: http://pivotallabs.com/api-versioning/
 
+## Caching
+
+
++ Caching API Requests:
+http://robots.thoughtbot.com/caching-api-requests
++ Caching your REST API
+http://restcookbook.com/Basics/caching/
+
+
+## General Background Reading + Watching
+
++ What is an API? (very basic intro): http://youtu.be/B9vPoCOP7oY
 + **BASIC** Introduction to APIs by [Derek Dahmer](https://github.com/ddgromit)
 @ General Assembly:  
-https://www.youtube.com/watch?v=FknvOGcLHmc (Google for Entrepreneurs) (*absolute beginner*?)
+https://www.youtube.com/watch?v=FknvOGcLHmc (Google for Entrepreneurs - *absolute beginner*?)
 + Wikipedia: http://en.wikipedia.org/wiki/Application_programming_interface
 + How to Design Great APIs - Parse:
 https://www.youtube.com/watch?v=qCdpTji8nxo
