@@ -10,28 +10,33 @@ A few quotes from
 [Joshua Bloch](http://en.wikipedia.org/wiki/Joshua_Bloch)'s
 Google Talk on
 ["***How To Design A Good API and Why it Matters***"](http://youtu.be/heh4OeB9A-c)  
-and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](https://parse.com/products)) ["***How to Design Great APIs***"](https://www.youtube.com/watch?v=qCdpTji8nxo)
+and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](https://parse.com/products))
+["***How to Design Great APIs***"](https://www.youtube.com/watch?v=qCdpTji8nxo)
 
-> "*You have **one chance** to **get it right**.*" [3:17](http://youtu.be/heh4OeB9A-c?t=3m17s)
+> "*You have **one chance** to **get it right**.*"
+[3:17](http://youtu.be/heh4OeB9A-c?t=3m17s)
 
 > "*A bad API can be amoung a company's greatest liabilities...
 > can cause an un-ending stream of support phonecalls ...
-and it can **inhibit** a company's **ability to move forward***" [2:51](http://youtu.be/heh4OeB9A-c?t=2m51s)
+and it can **inhibit** a company's **ability to move forward***"
+[2:51](http://youtu.be/heh4OeB9A-c?t=2m51s)
 
 > "*Once you have a **bad** API, you **can't change it**,
 you are pretty much **stuck with it forever**.*" [3:12](http://youtu.be/heh4OeB9A-c?t=2m51s)
 
 
-> "* ... **A good API** needs to appeal to the most powerful emotion: **Laziness***". [3:23](http://youtu.be/qCdpTji8nxo?t=3m23s)
+> "* ... **A good API** needs to appeal to the most powerful emotion: **Laziness***".
+[3:23](http://youtu.be/qCdpTji8nxo?t=3m23s)
 
-> "* You need to **be opinionated** even when **there is no right and wrong** *" [31:02](http://youtu.be/qCdpTji8nxo?t=31m2s)
+> "* You need to **be opinionated** even when **there is no right and wrong** *"
+[31:02](http://youtu.be/qCdpTji8nxo?t=31m2s)
 
 ## Characteristics of a Good API
 
 + ***Easy to learn*** (*notice the priority placement of learn-ability...*)
 + Intuitive / Easy to ***use*** even without documentation
 + ***Hard to misuse***.
-+ Easy to read and maintain code that uses it
++ Easy to *read* and *maintain* code that uses it
 + Sufficiently powerful to satisfy requirements
 + Easy to evolve
 + Appropriate to audience
@@ -50,8 +55,17 @@ http://stackoverflow.com/questions/630453/put-vs-post-in-rest
 #### Examples
 
 + Parse REST API: https://www.parse.com/docs/rest
+(really good example of good interactive documentation)
++ GitHub: https://developer.github.com/
 
+#### Useful Resources
 
++ **lout** API documentation generator (for hapi.js apps):
+https://github.com/hapijs/lout
++ RESTful web API Documentation Generator.
+http://apidocjs.com
++ Swagger - The World's Most Popular Framework for APIs:
+http://swagger.io
 
 ### Streaming
 
@@ -85,6 +99,9 @@ http://www.salesforce.com/developer/docs/api_streaming/
 http://www.troyhunt.com/2014/02/your-api-versioning-is-wrong-which-is.html
 + The debate on API versioning:
 http://stackoverflow.com/questions/389169/best-practices-for-api-versioning
++ Pivotal Labs API Versioning guide: http://pivotallabs.com/api-versioning/
++ Issues with API version in the URL/URI:
+https://www.mnot.net/blog/2012/12/04/api-evolution
 
 ### Wrong way 1 – URL versioning
 
@@ -94,6 +111,7 @@ https://haveibeenpwned.com/api/v2/breachedaccount/foo
 ```
 
 ### Wrong way 2 - custom request header
+
 ```sh
 HTTP GET:
 https://haveibeenpwned.com/api/breachedaccount/foo
@@ -102,7 +120,7 @@ api-version: 2
 
 ### Wrong way 3 - content type:
 
-```
+```sh
 HTTP GET:
 https://haveibeenpwned.com/api/breachedaccount/foo
 Accept: application/vnd.haveibeenpwned.v2+json
@@ -125,3 +143,9 @@ http://stackoverflow.com/questions/2619854/best-practices-and-guidelines-for-des
 http://youtu.be/qCdpTji8nxo?t=21m15s
 + Principals of good RESTful API design:
 http://codeplanet.io/principles-good-restful-api-design/
++ Building Hypermedia APIs with HTML5 and Node:
+http://www.amazon.com/Building-Hypermedia-APIs-HTML5-Node/dp/1449306578
++ Designing APIs for Asynchrony:
+http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony
++ API Design Principles: http://qt-project.org/wiki/API-Design-Principles
+(general principals. ignore the QT-specific parts)
