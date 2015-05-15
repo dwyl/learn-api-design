@@ -1,4 +1,4 @@
-# Learn API Design
+# Learn API Design [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/docdis/learn-api-design/issues)
 
 Essential learning for people building an API
 
@@ -23,13 +23,13 @@ Google Talk on
 ["***How To Design A Good API and Why it Matters***"](http://youtu.be/heh4OeB9A-c)  
 and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](https://parse.com/products))
 ["***How to Design Great APIs***"](https://www.youtube.com/watch?v=qCdpTji8nxo)
-- - -
+> - - -
 > "*You have* ***one chance*** *to* ***get it right***."
 [3:17](http://youtu.be/heh4OeB9A-c?t=3m17s)
 - - -
-> "*A bad API can be amoung a company's greatest liabilities...
+> "***A bad API*** *can be amoung a company's greatest liabilities...
 > can cause an un-ending stream of support phonecalls ...
-and it can **inhibit** a company's **ability to move forward***"
+and it **can inhibit** a company's **ability to move forward***"
 [2:51](http://youtu.be/heh4OeB9A-c?t=2m51s)
 - - -
 > "*Once you have a* ***bad API***, *you* ***can't change it***,
@@ -41,7 +41,7 @@ and it can **inhibit** a company's **ability to move forward***"
 > "*You need to* ***be opinionated*** *even when* ***there is no right and wrong***"
 [31:02](http://youtu.be/qCdpTji8nxo?t=31m2s)
 - - -
-> "*Always make your REST API as* ***small/short as possible***"
+> "*Always make your REST API* ***as small/short as possible***"
 [31:19](http://youtu.be/hdSrT4yjS1g?t=31m19s)
 - - -
 
@@ -49,11 +49,11 @@ and it can **inhibit** a company's **ability to move forward***"
 
 + ***Easy to learn*** (*notice the priority placement of learn-ability...*)
 + Intuitive / Easy to ***use*** even without documentation
-+ ***Hard to misuse***.
++ ***Hard to misuse*** (*write tests for "undesireable" behaviour*)
 + Easy to *read* and *maintain* code that uses it
 + Sufficiently powerful to satisfy requirements
-+ Easy to evolve
-+ Appropriate to audience
++ Easy to ***evolve*** (*the simpler the initial API the easier it will be to extend*)
++ Appropriate to ***audience*** (*make it beginner friendly*...)
 + ***Opinionated*** (means people don't have to *think*)
 
 
@@ -104,6 +104,8 @@ see: [52:29](http://youtu.be/hdSrT4yjS1g?t=52m29s)
 + **What** is **REST**?
 (if you haven't already read it, read the REST Wikipedia article):
 http://en.wikipedia.org/wiki/Representational_state_transfer
++ The 5 Things Every API Must Have:
+https://blog.newrelic.com/2014/09/08/apipunchlist/
 + Best Practices for Designing a Pragmatic RESTful API (***Great*** article)
 http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
 + REST+JSON API Design - Best Practices for Developers
