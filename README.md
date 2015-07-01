@@ -65,6 +65,30 @@ and it **can inhibit** a company's **ability to move forward***"
 style consisting of guidelines and best practices for creating
 scalable web services.
 
+
+### What is a RESTful web service?
+
+![restful API](http://i.imgur.com/xKXnKGT.jpg)
+
+[ReST](http://en.wikipedia.org/wiki/Representational_state_transfer)
+is a structured way of building web services and applications.
+When something is described as "RESTful" it simply means it follows a
+predefined predictable pattern for how it responds to requests.
+
+#### Video Explanation of REST
+
+- Intro to REST: http://youtu.be/llpr5924N7E
+- Google Developers Intro to REST: https://www.youtube.com/watch?v=YCcAE2SCQ6k
+
+#### Read more about REST APIs / RESTful Web Services
+
+- REST Wikipedia: http://en.wikipedia.org/wiki/REST (*Skim* and make sure you understand the concepts)
+- Beginners Guide: http://www.restapitutorial.com/
+- Basic Q&A for REST: http://katgleason.tumblr.com/post/37836552900/how-i-explained-rest-to-my-wife
+- What are RESTful web services: http://stackoverflow.com/a/3636470/1148249
+- What is "CRUD"? http://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+
+
 #### Why REST?
 
 + Scalability (dissemination - more people use your API)
