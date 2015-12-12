@@ -102,7 +102,7 @@ predefined predictable pattern for how it responds to requests.
 
 + **GET** = **read** an existing **record** or collection (list of records)
 + **POST** = **create** and ***partial*** update.
-+ **PUT** = **create** and [***indepotent***](http://stackoverflow.com/a/1077489/1148249) update
++ **PUT** = **create** and [***idempotent***](http://stackoverflow.com/a/1077489/1148249) update
 (always send **all** the fields required - not partial update)
 + **DELETE** = does exactly what it says
 
