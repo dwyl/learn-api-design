@@ -1,4 +1,4 @@
-# Learn API Design [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/docdis/learn-api-design/issues)
+# Learn API Design [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/learn-api-design/issues)
 
 Essential learning for people building an API
 
