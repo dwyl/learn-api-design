@@ -272,3 +272,4 @@ http://www.amazon.com/Building-Hypermedia-APIs-HTML5-Node/dp/1449306578
 http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony
 + API Design Principles: http://qt-project.org/wiki/API-Design-Principles
 (general principals. ignore the QT-specific parts)
++ Build an API under 30 lines of code with Python and Flask: https://impythonist.wordpress.com/2015/07/12/build-an-api-under-30-lines-of-code-with-python-and-flask/
