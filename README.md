@@ -27,7 +27,7 @@ and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](https://parse.com/pro
 > "*You have* ***one chance*** *to* ***get it right***."
 [3:17](http://youtu.be/heh4OeB9A-c?t=3m17s)
 - - -
-> "***A bad API*** *can be amoung a company's greatest liabilities...*
+> "***A bad API*** *can be among a company's greatest liabilities...*
 > *can cause an un-ending stream of support phonecalls ...*
 *and it* ***can inhibit*** *a company's* ***ability to move forward***"
 [2:51](http://youtu.be/heh4OeB9A-c?t=2m51s)
