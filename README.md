@@ -21,7 +21,7 @@ A few ***quotes*** from
 [**Joshua Bloch**](http://en.wikipedia.org/wiki/Joshua_Bloch)'s
 Google Talk on
 ["***How To Design A Good API and Why it Matters***"](http://youtu.be/heh4OeB9A-c)  
-and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](https://parse.com/products))
+and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](http://parseplatform.org/))
 ["***How to Design Great APIs***"](https://www.youtube.com/watch?v=qCdpTji8nxo)
 > - - -
 > "*You have* ***one chance*** *to* ***get it right***."
@@ -141,7 +141,7 @@ http://stackoverflow.com/questions/630453/put-vs-post-in-rest
 
 #### Examples of Successful (Good) APIs
 
-+ Parse REST API: https://www.parse.com/docs/rest
++ Parse REST API: http://docs.parseplatform.org/rest/guide/
 (really good example of good interactive documentation)
 + GitHub: https://developer.github.com/
 + Twitter: https://dev.twitter.com/rest/public
