@@ -203,23 +203,20 @@ https://www.mnot.net/blog/2012/12/04/api-evolution
 + Evolving HTTP APIs
 https://www.mnot.net/blog/2012/12/04/api-evolution
 
-### Wrong way 1 – URL versioning
-
+### Wrong way 1 – URL versioning
 ```sh
 HTTP GET:
 https://haveibeenpwned.com/api/v2/breachedaccount/foo
 ```
 
 ### Wrong way 2 - custom request header
-
 ```sh
 HTTP GET:
 https://haveibeenpwned.com/api/breachedaccount/foo
 api-version: 2
 ```
 
-### Wrong way 3 - content type:
-
+### Wrong way 3 - content type
 ```sh
 HTTP GET:
 https://haveibeenpwned.com/api/breachedaccount/foo
