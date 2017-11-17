@@ -49,7 +49,7 @@ and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](http://parseplatform.
 
 + ***Easy to learn*** (*notice the priority placement of learn-ability...*)
 + Intuitive / Easy to ***use*** even without documentation
-+ ***Hard to misuse*** (*write tests for "undesireable" behaviour*)
++ ***Hard to misuse*** (*write tests for "undesirable" behaviour*)
 + Easy to *read* and *maintain* code that uses it
 + Sufficiently powerful to satisfy requirements
 + Easy to ***evolve*** (*the simpler the initial API the easier it will be to extend*)
