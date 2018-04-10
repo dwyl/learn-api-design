@@ -79,6 +79,7 @@ predefined predictable pattern for how it responds to requests.
 
 - Intro to REST: http://youtu.be/llpr5924N7E
 - Google Developers Intro to REST: https://www.youtube.com/watch?v=YCcAE2SCQ6k
+- Apigee Youtube channel for API management, design pattern and summit talks: https://www.youtube.com/user/apigee
 
 #### Read more about REST APIs / RESTful Web Services
 
@@ -156,6 +157,10 @@ https://github.com/hapijs/lout
 http://apidocjs.com
 + Swagger - The World's Most Popular Framework for APIs:
 http://swagger.io
++ Open Source API Management Platform
+https://www.fusio-project.org
++ Collection of Public APIs
+https://github.com/toddmotto/public-apis
 
 ### Streaming
 
@@ -270,3 +275,9 @@ http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony
 + API Design Principles: http://qt-project.org/wiki/API-Design-Principles
 (general principals. ignore the QT-specific parts)
 + Build an API under 30 lines of code with Python and Flask: https://impythonist.wordpress.com/2015/07/12/build-an-api-under-30-lines-of-code-with-python-and-flask/
++ REST API Tutorial:
+http://www.restapitutorial.com/
++ API Design Guidelines:
+http://apistylebook.com/design/guidelines/
++ Public Vs Private APIs
+https://www.upwork.com/hiring/development/public-apis-vs-private-apis-whats-the-difference/
