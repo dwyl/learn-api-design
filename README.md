@@ -229,7 +229,7 @@ Accept: application/vnd.haveibeenpwned.v2+json
 ```
 ### Further Reading (Versioning)
 
-+ Pivotal Labs API Versioning guide: http://pivotallabs.com/api-versioning/
++ Pivotal Labs API Versioning guide: https://content.pivotal.io/blog/api-versioning
 + SemVer: http://semver.org/
 + Stripe's API Versioning: https://stripe.com/docs/api#versioning
 + *Comprehensive* List of how others are doing versioning:
