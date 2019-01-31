@@ -279,5 +279,6 @@ http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony
 http://www.restapitutorial.com/
 + API Design Guidelines:
 http://apistylebook.com/design/guidelines/
-+ Public Vs Private APIs
++ Public Vs Private APIs:
 https://www.upwork.com/hiring/development/public-apis-vs-private-apis-whats-the-difference/
++ Learn to work with APIs: https://workwithapis.com
