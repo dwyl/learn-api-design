@@ -105,6 +105,7 @@ predefined predictable pattern for how it responds to requests.
 + **POST** = **create** and ***partial*** update.
 + **PUT** = **create** and [***idempotent***](http://stackoverflow.com/a/1077489/1148249) update
 (always send **all** the fields required - not partial update)
++ **PATCH** = partial update (send only the fields to update)
 + **DELETE** = does exactly what it says
 
 ##### Examples
@@ -113,6 +114,7 @@ predefined predictable pattern for how it responds to requests.
 + **GET** /comment/:id - Returns a comment with the given id
 + **POST** /comment - Creates a new comment
 + **PUT** /comment/:id - Updates a comment with the given id
++ **PATCH** /comment/:id - Partially update a comment with the given id
 + **DELETE** /comment/:id - Deletes a comment with the given id
 
 #### Tips
@@ -139,6 +141,8 @@ http://youtu.be/hdSrT4yjS1g (*comprehensive* overview)
 http://youtu.be/FeSdFhsKGG0
 + PUT vs POST in REST:
 http://stackoverflow.com/questions/630453/put-vs-post-in-rest
++ PUT vs PATCH in REST:
+https://stackoverflow.com/questions/28459418/rest-api-put-vs-patch-with-real-life-examples
 
 #### Examples of Successful (Good) APIs
 
