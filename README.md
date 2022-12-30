@@ -209,6 +209,10 @@ predefined predictable pattern for how it responds to requests.
 For a system to be considered 100% `RESTful`, 
 it **must** follow six constraints:
 - [Uniform Interface](https://stackoverflow.com/questions/25172600/rest-what-exactly-is-meant-by-uniform-interface)
+    - Identification of resources
+    - Manipulation of resources through representations
+    - Self-descriptive messages
+    - Hypermedia as the engine of the application state.
 - [Statelessness](https://en.wikipedia.org/wiki/Stateless_protocol)
 - [Client-server](https://en.wikipedia.org/wiki/Client%E2%80%93server_model)
 - [Cacheable](https://en.wikipedia.org/wiki/Web_cache)
@@ -400,6 +404,393 @@ http://www.salesforce.com/developer/docs/api_streaming/
 
 ## `RESTful` API Design and Best Practices
 
+In this section, we are going to be outlining
+the best design and implementation practices
+you should follow to get
+a *performant, scalable, easy-to-use and maintainable `API`*.
+
+This list has no specific order. 
+They are a "bundle" of tips you can follow
+to make implementing the API 
+and *using it* **much easier**.
+
+### Provide sensible `Resource` names
+
+Creating a URL hierarchy representing resources 
+is important so there's clarity and context 
+of what a given request does.
+
+For example:
+
+```
+/customers/12345/orders
+```
+
+Here's a few tips:
+- use identifiers in your URLs instead of query params.
+*Query params* are **awesome for filtering**, not for resource names.
+    - `/customers/12345` ✅
+    - `/api?type=customers&id=23` ❌
+- resource names **should be nouns**, instead of verbs.
+The `HTTP Verb` should be logical, like `GET requests`  ✅
+(instead of `GET requesting`, for example ❌).
+- use *plurals* in URL segments.
+    - `/users/123/orders/2/items/1` ✅
+    - `/user_list/123/order/2/item/1` ❌
+- use lower-case in URL segments. 
+If you need to separate words, use `_` (underscore)
+or `-` (hyphen).
+Some servers ignore case so it's best to be clear.
+
+### Use adequate `HTTP` response codes to indicate status
+
+Response status codes are part of the `HTTP` specification.
+It only makes sense our `REST` API should return relevant `HTTP` status codes.
+
+For example, when a resource is created (`POST customer`),
+the API should return `HTTP` status code **201**.
+
+There are **various** codes to choose from.
+Check the following link to see the ones that are available
+and the ones that are mostly used.
+
+https://www.restapitutorial.com/httpstatuscodes.html
+
+### Use `query parameters` to filter, sort or search resources
+
+The resource URLs **should be as lean as possible**, 
+meaning that advanced search requirements
+should be shifted to be used with `query params`
+on top of the base resource URL.
+
+##### Filtering and sorting
+
+We can use a unique `query param` for each field
+that we want to filter to.
+Suppose we have `/items`.
+We may filter these items according
+to a `status` field, like so:
+
+```http
+GET /items?status=sold
+```
+
+The same principle can be applied to sorting.
+To support sorting by multiple fields,
+we can take in a comma-separated list
+and use `-` (unary operator)
+to specify ascending or descending sort.
+
+- `GET /items?sort=-price` 
+will list items in descending order of price.
+- `GET /items?sort=price,created_at` 
+will list items in ascending order of price, 
+with more recent tickets being ordered first.
+
+##### Searching
+
+We can do a full text search using `query params`.
+We may use a `query param` with a letter like `q`
+and pass a value.
+
+`GET /items?q=phone&status=sold&sort=-price,created_at` 
+will yield the highest priced item 
+that was most recently sold 
+with a name containing "phone".
+
+Usually you would use a dedicated full-text search engine
+like [Elastic Search](https://www.elastic.co/)
+in which you would *feed* the `q=phone` designation.
+
+In cases where you know specific sets of conditions
+are frequently fetched required by the consumer of the API,
+you could *package these into a single resource path*,
+to make it easier for the user to query.
+
+```http
+GET /items/highest_priced
+```
+
+##### Limit fields returned in the `JSON ` response
+
+You can also leverage `query params` 
+to **choose** the fields you want to receive.
+This is extremely useful because it can minimize network traffic
+and speed up the usage of the API.
+
+We can use a `fields` query parameter that takes a comma-separated list
+(similarly to the sorting example mentioned prior)
+pertaining to each field we want to retrieve.
+
+```http
+GET /items?fields=id,price,name&status=sold&sort=-created_at
+```
+
+You can also *extend this feature* 
+to load related resources to the one we are fetching.
+For example, consider we have a `Car` 
+and each `Car` has many `Wheels`. 
+`Car` -> `Wheel` is a 1-to-many relationship.
+
+If we wanted to get a `Car` object
+and load each `Wheel` object,
+we could use an `embed` term as query parameter,
+similarly to sorting a resource.
+
+An `embed` term would be a comma separated list of fields to be embedded.
+To refer to sub-fields we could use `.` (dot-notation).
+For example:
+
+```http
+GET /cars/1?embed=wheel.position
+```
+
+This would yield:
+
+```json
+{
+  "id" : 1,
+  "model" : "Miata",
+  "wheel" : {
+    "position" : "Front left",
+    "position" : "Front right",
+    "position" : "Back left",
+    "position" : "Back right",
+  }
+}
+```
+
+Implementing this depends on the complexity of your requirements.
+This also reduces `chatiness`, 
+so the user doesn't have to call the API repeatedly for resource information.
+
+
+### Favour `JSON` over `XML` support
+
+You *should favour `JSON` support*.
+Unless your requirements require `XML`, you should add support for it.
+Be aware that adding this opens doors for other implementation details
+like [schema validation](https://learn.microsoft.com/en-us/dotnet/standard/data/xml/xml-schema-xsd-validation-with-xmlschemaset)
+or [namespaces](https://en.wikipedia.org/wiki/XML_namespace).
+
+This is a costly operation and, unless it's a mandatory requirement,
+it's a "nice-to-have".
+But having this support is outweighed by the time/cost of implementing it.
+
+### Avoid chattiness in your API
+
+When starting to build your API, we tend to build the `URI` paths
+according to the business domain or database architecture of your system.
+
+Eventually, you will want to **aggregate services**
+that make use of multiple resources to reduce chattiness.
+
+> **Chattiness** is an important concept to take into account
+when building an API.
+A *"chatty API"* is one that requires the consumer to make
+distinct API calls to get needed information about a resource.
+> 
+> This is **bad** because it will require multiple network calls,
+slowing down an application.
+This is because each call contains data overhead 
+(i.e. sender information, headers, authentication) 
+which will slow down an application as well as network latency per each request.
+
+However, it is much easier to create larger resources later
+from individual resources than it is to create fine-grained resources
+from larger aggregates.
+
+**Start with small, easily-defined resources**. 
+You can create use-case-specific resources
+with low levels of chattiness later.
+
+This is the dichotomy 
+between **chunkiness** and **chattiness**.
+*Chatty services* tend to be ones 
+that return simplified information 
+and use more fine-grained operations. 
+*Chunky services* tend to return complex hierarchies of information 
+and use coarse operations.
+
+Let's go over an example:
+
+Imagine a dev wants to get product reviews.
+But our API only offers a `GET` method to list products
+(`/api/products/1`).
+
+```json
+{
+   "name": "Mobile phone",
+   "cost": 500.0,
+   "reviews": [
+        "/api/reviews/1",
+        "/api/reviews/2",
+        "/api/reviews/3"
+        ...
+    ]
+}
+```
+
+To get the reviews for a product,
+the developer *needs to make `N` amount of API requests*.
+**This is a major flaw in our API**.
+
+
+Instead, let's use a resource-oriented approach.
+We can fix it by adding a new path -
+`/api/products/{id}/reviews `.
+By calling (`GET` operation) this endpoint,
+the developer would get all reviews
+for the product with a *single API call*.
+We can extend this with *query params* 
+to filter the result.
+
+```json
+{
+   "name": "Mobile phone",
+    "cost": 500.0,
+   "reviews":[
+        { "id": "1", "text": "Good one!"},
+        { "id": "2", "text": "Bad one!"},
+        { "id": "3", "text": "Meh"},
+        ...
+    ]
+}
+```
+
+### *Consider* `connectedness`
+
+As we've [stated prior](#what-is-a-RESTful-web-service?),
+one of the principles of `REST` is **uniform interface**.
+One of his tenets is "Hypermedia as the engine of the application state.".
+
+What does this mean?
+
+This is called `HATEOAS` (acronym), and it means that
+when a client interacts with an API, 
+it expects it to provide information of "where to go next".
+
+Let's look at an example.
+This is the old Twitter.
+
+<img width="1318" alt="old_tweet" src="https://user-images.githubusercontent.com/17494745/210090822-05aa1538-4e3c-40bc-a6c4-c75049143718.png">
+
+You will notice that there are many options 
+one can take in this page.
+We can retweet, follow, favourite...
+There *are many possible states*.
+In case you were wondering, there are **32 possible states** here.
+
+<img width="1415" alt="state_diagram" src="https://user-images.githubusercontent.com/17494745/210090994-b5ee9379-e58d-4198-8561-0238961fbcef.png">
+
+These are the possible state transitions for this *single node*.
+So, in this case, we are making this request
+(this is not real, just an example).
+
+```http
+GET user/1/tweets/1 HTTP/1.1
+Host: twitter.com
+```
+
+The response, following `HATEOAS`, 
+would include an array of links(**states**)
+which the user can *transition into*.
+
+```json
+{
+    "id": 12345,
+    "num_likes": 50,
+    "links": {
+        "retweet": "/tweets/12345/retweet",
+        "report_user": "/user/1/reports",
+        "follow_user": "/user1/12345/followers",
+    }
+}
+```
+
+If you want to have an opinionated introduction to `HATEOAS`,
+we recommend you watch this video from Google.
+
+https://www.youtube.com/watch?v=6UXc71O7htc&ab_channel=Apigee
+
+However, there are people who think that adding `HATEOAS`
+translates into [adding more complexity](https://stackoverflow.com/questions/20335967/how-useful-important-is-rest-hateoas-maturity-level-3)
+to the `REST` API 
+and its main advantage can easily be achieved
+through a well-crafted documentation.
+
+Regardless, the user needs to *easily* know
+where to transition to next.
+If proper documentation or making use of `HATEOAS` achieves it,
+you can pick whichever suits your project's requirements.
+
+### Always use `SSL`
+
+[`SSL` certificates create an encrypted connection 
+and establish trust](https://www.digicert.com/what-is-an-ssl-certificate).
+Several common authentication schemes are not secure over plain `HTTP`.
+For example, Basic Authentication send unencrypted credentials.
+To make these connections secure, 
+when creating links between networked computers, 
+we ought to **use `SSL`** so the connection is encrypted.
+
+You might have heard of `TLS`. 
+It is simply `SSL`'s successor (which is deprecated).
+The acronym `SSL` refers to protocol 
+of these related technologies,
+so it is used interchangeably. 
+
+### Lint your responses and add `gzip` support
+
+Make sure you [beautify your JSON](https://jsoneditoronline.org/indepth/beautify/beautify-json/)
+when returning it to the user. 
+When you encode a `JSON` using a given decoder,
+most don't add remove all whitespace
+and encode it in a single line.
+
+This extra whitespace is negligible when transferring data,
+especially when sending data when compressed with [`gzip`](https://en.wikipedia.org/wiki/Gzip).
+
+So, it's *more readable* for the user 
+when the `JSON` is properly formatted,
+and `gzip` compression is enabled.
+
+### Accept `JSON` in `POST`, `PATCH`, `PUT` bodies
+
+When creating resources (`POST`)
+or updating (`PATCH`/`PUT`),
+the API needs to receive input. 
+This is usually in the form of a `JSON` object.
+
+To maintain consistency, if your API returns a `JSON` object,
+it should also receive input in the same format.
+
+You should accept a [`Content-Type` `HTTP Header`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
+that has to be set to `application/json`.
+
+If any other is sent, 
+you should throw a `415 Unsupported Media Type` `HTTP` status code.
+
+### Pagination
+
+There are a handful of ways of implementing pagination
+following the `RESTful` standards.
+Instead of detailing them, 
+we **highly recommend you** reading the following link,
+as it explains this topic in a fast and simple manner.
+
+https://stackoverflow.com/a/43968710/20281592
+
+Just know you can do a combination of `HTTP Headers`
+like [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link),
+and [`X-Total-Count`](https://github.com/zalando/restful-api-guidelines/issues/116)
+and *enveloping* (this means wrapping the `JSON` object in a field).
+
+### Rate Limiting
+
+
+
+
 DESIGN GUIDE
 https://www.restapitutorial.com/lessons/restquicktips.html
 https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
@@ -503,6 +894,10 @@ http://swagger.io
 https://www.fusio-project.org
 + Collection of Public APIs
 https://github.com/toddmotto/public-apis
+
+## Documentation 
+
+## Perf test
 
 ## General Background Reading + Watching
 
