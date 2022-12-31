@@ -1,7 +1,3 @@
-UPTIME -> https://www.reddit.com/r/devops/comments/vi1nx5/which_tool_to_use_for_monitoring_uptime_of_apis/
-
-
-
 <div align="center">
 
 # Learn API Design
@@ -12,16 +8,22 @@ that is performant, scalable and maintainable.
 [![HitCount](https://hits.dwyl.com/dwyl/learn-api-design.svg?style=flat-square&show=unique)](http://hits.dwyl.com/dwyl/learn-api-design)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/learn-api-design/issues)
 
-</div>
 
 ![Grandma Remote](https://i.imgur.com/pdrRPjm.jpg)
+
+</div>
+
 
 Joking aside, ***starting*** a project "***from scratch***" is a ***opportunity***
 (and *privilege*) ***few people get***.  
 If you are ***fortunate*** enough to be
 in that position, ***do not take*** the **task** ***lightly***.
 
+<div align="center">
+
 ![golden ticket](https://i.imgur.com/U6a5SCh.jpg)
+
+</div>
 
 Building the *interface* for a new project is nothing short of a ***Golden Ticket***! So do your homework *before* you start!
 
@@ -80,7 +82,8 @@ It is a structured way for one program to offer services to other programs.
 Let's take the example of the 
 [`Twitter API`](https://developer.twitter.com/en/docs/platform-overview).
 We could use it to write a bot that displays the top tweets of the day.
-We, as users, don't need to know about the internal details
+We, as users of the API, 
+don't need to know about the internal details
 of Twitter's systems, 
 nor does Twitter want us to.
 But using their API, we  are able to do specific things
@@ -112,15 +115,16 @@ In fact, there is an historical precedence to it.
 
 ### RPC
 
-The earliest and simplest form of API
+The earliest and simplest form of an API
 was **`RPC` Remote Procedure Call**,
 hailing from the 80's.
+
 The name speaks for itself.
 It's a straightforward interaction where a local client
 sends commands to a remote server.
 
 Here's a closer look at how it works.
-Both client and server use different call params,
+Both client and server use different call parameters,
 so they must be converted so it is understood by the other side.
 This conversion is made inside **stubs**.
 
@@ -191,9 +195,10 @@ with Microsoft's [`Graph Explorer API`](https://developer.microsoft.com/en-us/gr
 
 <img width="1214" alt="graphAPI" src="https://user-images.githubusercontent.com/17494745/209994353-a2c94374-720b-4b7e-b4e7-aa1409f71165.png">
 
-We are accessing the **URI - Uniform Resource Identifier**
-and doing **an action** - a `GET` (fetching) request.
-with an `HTTP` request.
+When using this API,
+we are accessing the **URI - Uniform Resource Identifier**
+and doing **an action** - 
+a `GET` `HTTP`(fetching) request.
 The response is a `JSON` with the profile of the user.
 
 
@@ -207,7 +212,7 @@ When something is described as "RESTful" it simply means it follows a
 predefined predictable pattern for how it responds to requests.
 
 For a system to be considered 100% `RESTful`, 
-it **must** follow six constraints:
+it **ought to** follow six constraints:
 - [Uniform Interface](https://stackoverflow.com/questions/25172600/rest-what-exactly-is-meant-by-uniform-interface)
     - Identification of resources
     - Manipulation of resources through representations
@@ -319,13 +324,13 @@ This is most adequate for most web apps, cloud apps and microservices
 we see everyday.
 
 *However*, these are not particularly good nor performant
-when we are looking at **realtime scenarios** - for example, 
-a live score sports app.
+when applied to **realtime scenarios** - 
+for example, a live score sports app.
 Since `REST` APIs use `HTTP`, there is bigger overhead per message,
 leading to increased latency and higher CPU usage.
 
 **Realtime APIs** exist but they don't use the `HTTP` protocol.
-*They use *websockets**.
+*They use `WebSockets`*.
 
 #### WebSockets
 
@@ -344,7 +349,8 @@ event-driven services that require **high-frequency communication**.
 or if `TCP` is foreign to you,
 we recommend you getting familiar 
 with [`TCP/IP``, also known as **Internet Protocol Suite**](https://en.wikipedia.org/wiki/Internet_protocol_suite).
-![tcp/ip](https://cdn.kastatic.org/ka-perseus-images/6a0cd3a5b7e709c2f637c959ba98705ad21e4e3c.svg)
+>
+>![tcp/ip](https://cdn.kastatic.org/ka-perseus-images/6a0cd3a5b7e709c2f637c959ba98705ad21e4e3c.svg)
 
 To create an `WebSocket` connection,
 an initial HTTP *handshake* is made,
@@ -391,9 +397,38 @@ They offer a `RESTful` API
 but also [provide a **`WebSocket API`**](https://polygon.io/docs/stocks/ws_getting-started),
 where the user connects to a 
 *WebSocket URI* (e.g. `wss://socket.polygon.io/stocks`)
-and receives data as the stock prices change overtime.
+and receives data as the stock prices change overtime per minute.
 
-There are other examples worth mentioning:
+The response object of this API doesn't differ from the "regular ones".
+The previous endpoint returns a response object
+with a `JSON` format:
+
+```json
+{
+  "ev": "AM",
+  "sym": "GTE",
+  "v": 4110,
+  "av": 9470157,
+  "op": 0.4372,
+  "vw": 0.4488,
+  "o": 0.4488,
+  "c": 0.4486,
+  "h": 0.4489,
+  "l": 0.4486,
+  "a": 0.4352,
+  "z": 685,
+  "s": 1610144640000,
+  "e": 1610144700000
+}
+```
+
+The `s` and `e` fields pertain to the timestamp of the starting and ending tick
+of the aggregate window in Unix Milliseconds, respectfully.
+These fields are necessary to differentiate 
+the incoming data overtime.
+
+Besides `Polygon.io`, 
+there are other examples worth mentioning:
 + Twitter Streaming API:
 https://dev.twitter.com/streaming/overview
 + Salesforce Streaming API:
@@ -440,7 +475,7 @@ The `HTTP Verb` should be logical, like `GET requests`  ✅
 - use lower-case in URL segments. 
 If you need to separate words, use `_` (underscore)
 or `-` (hyphen).
-Some servers ignore case so it's best to be clear.
+Some servers ignore case, so it's best to be clear.
 
 ### Use adequate `HTTP` response codes to indicate status
 
@@ -454,7 +489,7 @@ There are **various** codes to choose from.
 Check the following link to see the ones that are available
 and the ones that are mostly used.
 
-https://www.restapitutorial.com/httpstatuscodes.html
++ List of possible HTTP Status Codes: https://www.restapitutorial.com/httpstatuscodes.html
 
 ### Use `query parameters` to filter, sort or search resources
 
@@ -503,9 +538,9 @@ like [Elastic Search](https://www.elastic.co/)
 in which you would *feed* the `q=phone` designation.
 
 In cases where you know specific sets of conditions
-are frequently fetched required by the consumer of the API,
+are frequently fetched/required by the consumer of the API,
 you could *package these into a single resource path*,
-to make it easier for the user to query.
+to make it easier for the user to query data.
 
 ```http
 GET /items/highest_priced
@@ -527,7 +562,8 @@ GET /items?fields=id,price,name&status=sold&sort=-created_at
 ```
 
 You can also *extend this feature* 
-to load related resources to the one we are fetching.
+to **load related resources to the one we are fetching**.
+
 For example, consider we have a `Car` 
 and each `Car` has many `Wheels`. 
 `Car` -> `Wheel` is a 1-to-many relationship.
@@ -537,8 +573,9 @@ and load each `Wheel` object,
 we could use an `embed` term as query parameter,
 similarly to sorting a resource.
 
-An `embed` term would be a comma separated list of fields to be embedded.
-To refer to sub-fields we could use `.` (dot-notation).
+An `embed` term would be a comma-separated list of fields 
+that would be loaded and *embedded* to the `JSON` object.
+To refer to sub-fields, we could use `.` (dot-notation).
 For example:
 
 ```http
@@ -561,7 +598,7 @@ This would yield:
 ```
 
 Implementing this depends on the complexity of your requirements.
-This also reduces `chatiness`, 
+This also reduces `chattiness`, 
 so the user doesn't have to call the API repeatedly for resource information.
 
 ### Show meaningful Errors
@@ -727,7 +764,7 @@ This is the old Twitter.
 You will notice that there are many options 
 one can take in this page.
 We can retweet, follow, favourite...
-There *are many possible states*.
+There *are many possible states we can transition into*.
 In case you were wondering, there are **32 possible states** here.
 
 <img width="1415" alt="state_diagram" src="https://user-images.githubusercontent.com/17494745/210090994-b5ee9379-e58d-4198-8561-0238961fbcef.png">
@@ -794,8 +831,12 @@ so it is used interchangeably.
 Make sure you [beautify your JSON](https://jsoneditoronline.org/indepth/beautify/beautify-json/)
 when returning it to the user. 
 When you encode a `JSON` using a given decoder,
-most don't add remove all whitespace
+most remove all whitespace
 and encode it in a single line.
+
+Instead, you could (and should!)
+properly format your `JSON` object,
+even if extra whitespace is added to make it more readable.
 
 This extra whitespace is negligible when transferring data,
 especially when sending data when compressed with [`gzip`](https://en.wikipedia.org/wiki/Gzip).
@@ -828,7 +869,7 @@ Instead of detailing them,
 we **highly recommend you** reading the following link,
 as it explains this topic in a fast and simple manner.
 
-https://stackoverflow.com/a/43968710/20281592
++ What’s the best RESTful method to return total number of items in an object?: https://stackoverflow.com/a/43968710/20281592
 
 Just know you can do a combination of `HTTP Headers`
 like [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link),
@@ -862,7 +903,7 @@ https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/#:~:t
 - API Rate Limiter System Design: https://www.enjoyalgorithms.com/blog/design-api-rate-limiter
 
 
-## Caching
+### Caching
 
 **If some recurring requests produce the same response, 
 we can use a cached version of the response to avoid the excessive load.**
@@ -914,28 +955,6 @@ http://robots.thoughtbot.com/caching-api-requests
 + System Design Caching: https://dev.to/karanpratapsingh/system-design-caching-18j4
 
 
-
-
-DESIGN GUIDE
-https://www.restapitutorial.com/lessons/restquicktips.html
-https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
-https://www.freecodecamp.org/news/rest-api-design-best-practices-build-a-rest-api/
-https://cloud.google.com/apis/design
-
-
-
-
-## links
-+ Best Practices for Designing a Pragmatic RESTful API (***Great*** article)
-http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
-+ REST+JSON API Design - Best Practices for Developers
-http://youtu.be/hdSrT4yjS1g (*comprehensive* overview)
-+ Secure Your API - Tips for REST + JSON Developers
-http://youtu.be/FeSdFhsKGG0
-
-
-
-
 ## Versioning your API?
 
 ![API Versioning](https://i.imgur.com/lu5DhRy.jpg)
@@ -980,7 +999,7 @@ to the appropriate endpoint.
 
 It can become *unwieldy* as the API matures
 and more versions are added.
-From a *purists perspective*, 
+From a *purist's perspective*, 
 some endpoints aren't affected between versions,
 so it doesn't make sense for the URI to change.
 
@@ -1053,8 +1072,6 @@ We recommend you giving the following links a read
 to learn more about each approach,
 and how popular APIs are doing their versioning.
 
-### Further Reading (Versioning)
-
 + Microsoft's Versioning API practices: https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
 + Issues with API version in the URL/URI:
 https://www.mnot.net/blog/2012/12/04/api-evolution
@@ -1080,6 +1097,31 @@ https://github.com/toddmotto/public-apis
 ## Documentation 
 
 ## Perf test
+
+
+UPTIME -> https://www.reddit.com/r/devops/comments/vi1nx5/which_tool_to_use_for_monitoring_uptime_of_apis/
+
+
+
+
+
+DESIGN GUIDE
+https://www.restapitutorial.com/lessons/restquicktips.html
+https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
+https://www.freecodecamp.org/news/rest-api-design-best-practices-build-a-rest-api/
+https://cloud.google.com/apis/design
+
+
+
+
+## links
++ Best Practices for Designing a Pragmatic RESTful API (***Great*** article)
+http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
++ REST+JSON API Design - Best Practices for Developers
+http://youtu.be/hdSrT4yjS1g (*comprehensive* overview)
++ Secure Your API - Tips for REST + JSON Developers
+http://youtu.be/FeSdFhsKGG0
+
 
 
 
