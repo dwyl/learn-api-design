@@ -437,7 +437,7 @@ http://www.salesforce.com/developer/docs/api_streaming/
 
 ----------------
 
-## `RESTful` API Design and Best Practices
+# `RESTful` API Design and Best Practices
 
 In this section, we are going to be outlining
 the best design and implementation practices
@@ -449,7 +449,7 @@ They are a "bundle" of tips you can follow
 to make implementing the API 
 and *using it* **much easier**.
 
-### Provide sensible `Resource` names
+## Provide sensible `Resource` names
 
 Creating a URL hierarchy representing resources 
 is important so there's clarity and context 
@@ -477,7 +477,7 @@ If you need to separate words, use `_` (underscore)
 or `-` (hyphen).
 Some servers ignore case, so it's best to be clear.
 
-### Use adequate `HTTP` response codes to indicate status
+## Use adequate `HTTP` response codes to indicate status
 
 Response status codes are part of the `HTTP` specification.
 It only makes sense our `REST` API should return relevant `HTTP` status codes.
@@ -491,14 +491,14 @@ and the ones that are mostly used.
 
 + List of possible HTTP Status Codes: https://www.restapitutorial.com/httpstatuscodes.html
 
-### Use `query parameters` to filter, sort or search resources
+## Use `query parameters` to filter, sort or search resources
 
 The resource URLs **should be as lean as possible**, 
 meaning that advanced search requirements
 should be shifted to be used with `query params`
 on top of the base resource URL.
 
-##### Filtering and sorting
+#### Filtering and sorting
 
 We can use a unique `query param` for each field
 that we want to filter to.
@@ -522,7 +522,7 @@ will list items in descending order of price.
 will list items in ascending order of price, 
 with more recent tickets being ordered first.
 
-##### Searching
+#### Searching
 
 We can do a full text search using `query params`.
 We may use a `query param` with a letter like `q`
@@ -546,7 +546,7 @@ to make it easier for the user to query data.
 GET /items/highest_priced
 ```
 
-##### Limit fields returned in the `JSON ` response
+#### Limit fields returned in the `JSON ` response
 
 You can also leverage `query params` 
 to **choose** the fields you want to receive.
@@ -601,7 +601,7 @@ Implementing this depends on the complexity of your requirements.
 This also reduces `chattiness`, 
 so the user doesn't have to call the API repeatedly for resource information.
 
-### Show meaningful Errors
+## Show meaningful Errors
 
 An API should provide useful and clear error messages, 
 just like any other interface.
@@ -651,7 +651,7 @@ Like so.
 ```
 
 
-### Favour `JSON` over `XML` support
+## Favour `JSON` over `XML` support
 
 You *should favour `JSON` support*.
 Unless your requirements require `XML`, you should add support for it.
@@ -663,7 +663,7 @@ This is a costly operation and, unless it's a mandatory requirement,
 it's a "nice-to-have".
 But having this support is outweighed by the time/cost of implementing it.
 
-### Avoid chattiness in your API
+## Avoid chattiness in your API
 
 When starting to build your API, we tend to build the `URI` paths
 according to the business domain or database architecture of your system.
@@ -744,7 +744,7 @@ to filter the result.
 }
 ```
 
-### *Consider* `connectedness`
+## *Consider* `connectedness`
 
 As we've [stated prior](#what-is-a-RESTful-web-service?),
 one of the principles of `REST` is **uniform interface**.
@@ -810,7 +810,7 @@ where to transition to next.
 If proper documentation or making use of `HATEOAS` achieves it,
 you can pick whichever suits your project's requirements.
 
-### Always use `SSL`
+## Always use `SSL`
 
 [`SSL` certificates create an encrypted connection 
 and establish trust](https://www.digicert.com/what-is-an-ssl-certificate).
@@ -826,7 +826,7 @@ The acronym `SSL` refers to protocol
 of these related technologies,
 so it is used interchangeably. 
 
-### Lint your responses and add `gzip` support
+## Lint your responses and add `gzip` support
 
 Make sure you [beautify your JSON](https://jsoneditoronline.org/indepth/beautify/beautify-json/)
 when returning it to the user. 
@@ -845,7 +845,7 @@ So, it's *more readable* for the user
 when the `JSON` is properly formatted,
 and `gzip` compression is enabled.
 
-### Accept `JSON` in `POST`, `PATCH`, `PUT` bodies
+## Accept `JSON` in `POST`, `PATCH`, `PUT` bodies
 
 When creating resources (`POST`)
 or updating (`PATCH`/`PUT`),
@@ -861,7 +861,7 @@ that has to be set to `application/json`.
 If any other is sent, 
 you should throw a `415 Unsupported Media Type` `HTTP` status code.
 
-### Pagination
+## Pagination
 
 There are a handful of ways of implementing pagination
 following the `RESTful` standards.
@@ -876,7 +876,7 @@ like [`Link`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link),
 and [`X-Total-Count`](https://github.com/zalando/restful-api-guidelines/issues/116)
 and *enveloping* (this means wrapping the `JSON` object in a field).
 
-### Rate Limiting
+## Rate Limiting
 
 It is *highly advisable* to add rate limiting to an API,
 to prevent abuse from malicious users that can flood the API with requests,
@@ -903,7 +903,7 @@ https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/#:~:t
 - API Rate Limiter System Design: https://www.enjoyalgorithms.com/blog/design-api-rate-limiter
 
 
-### Caching
+## Caching
 
 **If some recurring requests produce the same response, 
 we can use a cached version of the response to avoid the excessive load.**
@@ -1083,7 +1083,7 @@ https://www.mnot.net/blog/2012/12/04/api-evolution
 http://www.lexicalscope.com/blog/2012/03/12/how-are-rest-apis-versioned/
 
 
-### Documentation/API specification
+## Documentation/API specification
 
 + RESTful web API Documentation Generator.
 http://apidocjs.com
