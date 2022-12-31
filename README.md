@@ -564,6 +564,55 @@ Implementing this depends on the complexity of your requirements.
 This also reduces `chatiness`, 
 so the user doesn't have to call the API repeatedly for resource information.
 
+### Show meaningful Errors
+
+An API should provide useful and clear error messages, 
+just like any other interface.
+
+Besides returning adequate [`HTTP` status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#client_error_responses),
+a `JSON` error body should provide a template
+that is consistent in case something errors out.
+
+Here's what kind of information *should* be returned to the consumer.
+
+```json
+{
+  "code" : 4124,
+  "message" : "Something bad happened.",
+  "description" : "Error description goes here."
+}
+```
+
+This template is useful for `GET` requests.
+
+On the other hand,
+When we make `PUT`, `PATCH` or `POST` operations,
+having a field breakdown is useful for the user
+to know what *and where it went wrong*.
+We could add detailed errors for each field
+that was invalid/was the cause for the request to error.
+
+Like so.
+
+```json
+{
+  "code" : 123,
+  "message" : "Some error message",
+  "errors" : [
+    {
+      "code" : 55,
+      "field" : "open",
+      "message" : "Status has to be a boolean"
+    },
+    {
+       "code" : 52,
+       "field" : "message",
+       "message" : "Message cannot be blank"
+    }
+  ]
+}
+```
+
 
 ### Favour `JSON` over `XML` support
 
@@ -788,6 +837,82 @@ and *enveloping* (this means wrapping the `JSON` object in a field).
 
 ### Rate Limiting
 
+It is *highly advisable* to add rate limiting to an API,
+to prevent abuse from malicious users that can flood the API with requests,
+causing it to crash.
+
+It can be useful to notify the API consumer of their limits.
+You can notify your API users with 
+[`HTTP response headers`](https://stackoverflow.com/questions/16022624/examples-of-http-api-rate-limiting-http-response-headers).
+
+You should include the following headers:
+
+- `X-Rate-Limit-Limit` - 
+the rate limit ceiling for that given endpoint.
+- `X-Rate-Limit-Remaining` - 
+the number of requests left for the 15 minute window.
+- `X-Rate-Limit-Reset` - 
+the remaining window before the rate limit resets, in UTC epoch seconds.
+
+Consider the following resources
+to implement rate-limiting into your API.
+- Rate-limiting strategies and techniques by Google: https://cloud.google.com/architecture/rate-limiting-strategies-techniques
+- Everything you need to know about API rate limiting: 
+https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/#:~:text=To%20prevent%20an%20API%20from,instead%20of%20disconnecting%20them%20immediately.
+- API Rate Limiter System Design: https://www.enjoyalgorithms.com/blog/design-api-rate-limiter
+
+
+## Caching
+
+**If some recurring requests produce the same response, 
+we can use a cached version of the response to avoid the excessive load.**
+
+Caching enables us to store copies of frequently accessed data
+along the request-response path.
+There are many frameworks and technologies 
+that makes it easy to integrate caching - 
+[Redis](https://redis.io/docs/manual/client-side-caching/), 
+for example.
+
+However, we can integrate a rudimentary cache system
+because `HTTP` provides a simple built-in caching framework.
+All we need to do is adding response headers back to the user
+and do validation when receiving response headers from the user.
+
+We have two possible approaches:
+
+- [`ETag`](https://en.wikipedia.org/wiki/HTTP_ETag): 
+an `Etag` `HTTP` header contains a hash of the data representation.
+This value changes whenever the data changes.
+If an inbound `HTTP` request has a
+[`If-None-Match`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) 
+header with a matching `ETag` value,
+it means the data is the same,
+so the API returns a `303 Not Modified` `HTTP` status code.
+
+- `Last-Modified`: 
+works the same way as `ETag` but uses timestamps.
+The response header [`Last-Modified`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified)
+contains a timestamp
+which is validated against [`If-Modified-Since`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since).
+
+This is a useful, albeit simple framework that can be used.
+However, some projects might require more complex requirements
+that call for robust frameworks.
+
+If you are interested in learning more about caching,
+check out the following links.
+
++ Caching API Requests:
+http://robots.thoughtbot.com/caching-api-requests
++ Caching your REST API
+http://restcookbook.com/Basics/caching/
++ API Caching
+http://www.fastly.com/blog/api-caching-part-1/
++ Thoughtbot caching insights (mostly ruby-focussed):
+http://robots.thoughtbot.com/caching-api-requests
++ System Design Caching: https://dev.to/karanpratapsingh/system-design-caching-18j4
+
 
 
 
@@ -811,80 +936,137 @@ http://youtu.be/FeSdFhsKGG0
 
 
 
-#### Tips
-
-To reduce the amount of data retrieved,
-we can *specify* the exact fields we want in url e.g:
-```
-GET /accounts/1234/fields=firstname,surname,etc
-```
-see: [52:29](http://youtu.be/hdSrT4yjS1g?t=52m29s)
-
-
-
 ## Versioning your API?
 
-![API Versioning](http://i.imgur.com/lu5DhRy.jpg)
+![API Versioning](https://i.imgur.com/lu5DhRy.jpg)
 
-There is on-going debate on whether APIs should be versioned
+It's highly unlikely that an API will remain static.
+As business requirements evolve, 
+new collections of resources ought to be added,
+relationships changed
+and data structure might be affected.
+
+It is imperative to enable existing client applications
+to continue functioning,
+while allowing new users to take advantages of new features/resources added.
+
+Versioning enables the API
+to indicate the features/resources that it exposes,
+and a consumer can make requests that are directed to a specific version.
+This allows users to not be impacted when an API makes breaking changes.
+
+
+There is [on-going debate](http://stackoverflow.com/questions/389169/best-practices-for-api-versioning)
+on whether APIs should be versioned,
 and if so, how should this be done.
+There is no "correct way of doing things".
+In fact, [many popular APIs usually do one of three approaches](http://www.lexicalscope.com/blog/2012/03/12/how-are-rest-apis-versioned/).
 
-There are two primary approaches to versioning [32:43](http://youtu.be/hdSrT4yjS1g?t=32m43s)
+Let's briefly discuss the three most popular approaches.
 
-### Intro Reading
+### URI versioning
 
-+ Your API versioning is wrong:
-http://www.troyhunt.com/2014/02/your-api-versioning-is-wrong-which-is.html
-+ The debate on API versioning:
-http://stackoverflow.com/questions/389169/best-practices-for-api-versioning
-+ Issues with API version in the URL/URI:
-https://www.mnot.net/blog/2012/12/04/api-evolution
-+ Evolving HTTP APIs
-https://www.mnot.net/blog/2012/12/04/api-evolution
+Each time the API is modified,
+a version number is added to the URI for reach resource.
 
-### Wrong way 1 – URL versioning
-```sh
+```http
 HTTP GET:
 https://haveibeenpwned.com/api/v2/breachedaccount/foo
 ```
 
-### Wrong way 2 - custom request header
-```sh
+This versioning mechanism is very simple
+but depends on the server routing the request
+to the appropriate endpoint.
+
+It can become *unwieldy* as the API matures
+and more versions are added.
+From a *purists perspective*, 
+some endpoints aren't affected between versions,
+so it doesn't make sense for the URI to change.
+
+Implementing `HATEOAS` is harder, 
+as all links need to change according to the version number.
+
+### Header versioning
+
+We could implement a custom header that indicates the version of the resource.
+This approach requires the consumer
+adding the appropriate header to all requests
+(the API could default to a specific version if none was sent, though).
+
+
+```http
 HTTP GET:
 https://haveibeenpwned.com/api/breachedaccount/foo
-api-version: 2
+Custom-Header: api-version=1
 ```
 
-### Wrong way 3 - content type
-```sh
+Implementing `HATEOAS` has the same hurdle
+as in the previous approach.
+
+### Media type versioning
+
+When an API client sends an `HTTP` request,
+it should stipulate the format of the content that it wants,
+by passing an [`Accept`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) header.
+
+Usually, the purpose of this `Accept` header is to specify 
+the format of the body (`JSON` or `XML`, for example) -
+this is called [`content negotiation`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation).
+
+However, it can be used to define custom media types
+that include information enabling the consumer to indicate
+*which version of a resource* it is expecting.
+
+```http
 HTTP GET:
 https://haveibeenpwned.com/api/breachedaccount/foo
 Accept: application/vnd.haveibeenpwned.v2+json
 ```
+
+If the `Accept` header does not specify valid media types,
+the API should return [`HTTP 406 Not Acceptable`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406).
+
+This is arguably the purest of the versioning mechanism,
+allowing for easier `HATEOAS` support.
+
+### Which one should I choose?
+
+When selecting a versioning strategy,
+you should consider performance and caching implications of each one.
+
+For example, URI versioning are *cache-friendly*,
+since the same URI combination refers to the same data each time.
+
+On the other hand, Header and Media Type versioning 
+will require additional logic to examine the values 
+of the passed headers (custom or `Accept`).
+In a large-scale scenario, having different versions of API
+will result *in a significant amount of duplicated data in the cache*.
+
+Regardless of the one you choose,
+there are pros or cons to each one 
+and consider possible side-effects accordingly.
+[Maybe all of these 3 approaches are wrong? 😉](https://www.troyhunt.com/your-api-versioning-is-wrong-which-is/).
+
+We recommend you giving the following links a read
+to learn more about each approach,
+and how popular APIs are doing their versioning.
+
 ### Further Reading (Versioning)
 
-+ Pivotal Labs API Versioning guide: https://content.pivotal.io/blog/api-versioning
++ Microsoft's Versioning API practices: https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
++ Issues with API version in the URL/URI:
+https://www.mnot.net/blog/2012/12/04/api-evolution
++ Evolving HTTP APIs
+https://www.mnot.net/blog/2012/12/04/api-evolution 
 + SemVer: http://semver.org/
 + Stripe's API Versioning: https://stripe.com/docs/api#versioning
 + *Comprehensive* List of how others are doing versioning:
 http://www.lexicalscope.com/blog/2012/03/12/how-are-rest-apis-versioned/
 
-## Caching
 
-+ Caching API Requests:
-http://robots.thoughtbot.com/caching-api-requests
-+ Caching your REST API
-http://restcookbook.com/Basics/caching/
-+ API Caching
-http://www.fastly.com/blog/api-caching-part-1/
-+ Caching and rate limiting:
-https://blog.apigee.com/detail/api_scalability_part_2_-_caching_rate_limits_and_offloading
-+ Thoughtbot caching insights (mostly ruby-focussed):
-http://robots.thoughtbot.com/caching-api-requests
-
-
-#### Documentation/specification
-
+### Documentation/API specification
 
 + RESTful web API Documentation Generator.
 http://apidocjs.com
@@ -898,6 +1080,9 @@ https://github.com/toddmotto/public-apis
 ## Documentation 
 
 ## Perf test
+
+
+
 
 ## General Background Reading + Watching
 
