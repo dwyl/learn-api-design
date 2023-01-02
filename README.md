@@ -1083,55 +1083,253 @@ https://www.mnot.net/blog/2012/12/04/api-evolution
 http://www.lexicalscope.com/blog/2012/03/12/how-are-rest-apis-versioned/
 
 
-## Documentation/API specification
+## API Documentation
 
-+ RESTful web API Documentation Generator.
-http://apidocjs.com
-+ Swagger - The World's Most Popular Framework for APIs:
-http://swagger.io
-+ Open Source API Management Platform
-https://www.fusio-project.org
-+ Collection of Public APIs
-https://github.com/toddmotto/public-apis
+Implementing the aforementioned guidelines and best practices
+will pave the way to having an API 
+that is scalable and maintainable for other developers.
 
-## Documentation 
+However, it is *crucial* to have **proper documentation**
+so it's easier for customers to onboard into the API.
 
-## Perf test
+Before delving into the options for documenting your API
+and what specifications you should adhere to,
+we should clarify the following definitions:
++ **API documentation** - pertains to the reference manual for an API.
+It is *meant for humans* to read and understand how to use the API,
+and make the onboarding process easier.
+There are many tools available 
+for generating and maintaining API documentation.
+Many of these can automatically generate 
+API documentation as web applications, 
+with guides for common languages 
+and interactive tutorials
+
++ **API specification** - is meant to provide an understanding 
+of *how the API behaves and links to other APIs*.
+**It's an holistic explanation of the API**.
+While API documentation is a detailed discussion
+of how the API functions and how to utilize it,
+the API specification is an *understanding of the functionality*
+and the *expected result* of each API function.
+
+While these to terms are often used interchangeably,
+and you can derive documentation from specification (and vice-versa),
+they mean two completely different things.
+
+Depending on the type of the API, 
+you should aim to use different specifications.
+
++ **`gRPC` APIs** use [Protocol Buffers](https://developers.google.com/protocol-buffers/docs/reference/proto3-spec).
++ **Event-driven APIs** use [AsyncAPI](https://www.asyncapi.com/).
++ **`RESTful` APIs** use [Open API Specification](https://swagger.io/specification/).
 
 
-UPTIME -> https://www.reddit.com/r/devops/comments/vi1nx5/which_tool_to_use_for_monitoring_uptime_of_apis/
+### `RESTful` API documentation tools
+
+Let's focus on `RESTful` APIs, 
+as they are more widely used 
+and you are most likely going to be implementing one.
+
+[`Swagger`](https://swagger.io/)
+is the *de facto* tool for creating API documentation.
+They created the *Open API Specification* (`OAS`) industry standard.
+From these `OAS` files,
+[you can generate documentation that is accessible through a web-app](https://swagger.io/tools/swagger-ui/).
+
+However, although being the most widely used,
+`Swagger` is not the only option for documenting your API.
+[`Stripe`'s](https://stripe.com/docs) API docs
+are often considered a great example of a well-designed,
+reader-centric and comprehensive documentation - 
+*it feels like an application*.
+While the front-end is based on [React](https://reactjs.org/)
+and is mostly built in-house,
+[they've recently open-sourced](https://stripe.com/blog/markdoc)
+the platform they use to generate documentation 
+and integrate it with their front-end code - 
+[Markdoc](https://markdoc.dev/docs/overview).
+
+`Markdoc` is one of the many options 
+one may use to produce API documentation.
+`Stripe`'s documentation is maintained by a very large team of developers,
+but we can leverage a few frameworks to create 
+easy-to-use docs for our users without having to spend 
+[millions of dollars](https://stripe.com/newsroom/news/stripe-series-h)
+to do so.
+
+We recommend you checking the following list of options
+to generate your own API documentation. 
+Most of these derive documentation
+from `OAS` definitions, 
+so we advise creating `OAS` files based on your API first.
+These frameworks were chosen with specific criteria;
+each one allows versioning for different releases,
+includes codesandbox for mocking API calls,
+includes page analytics
+and serves content in different languages.
+
+- [**ApiDocJS**](https://apidocjs.com/):
+inline documentation for RESTful web APIs.
+- [**ReadTheDocs**](https://readthedocs.org/):
+often used by the open-source community 
+to rapidly generate docs. 
+- [**Docusaurus**](https://docusaurus.io/):
+open-source doc generator maintained by Meta.
+- [**GitBook**](https://docusaurus.io/):
+documentation platform for public APIs 
+and technical briefs.
+- [**Readme.com**](https://readme.com/):
+mature doc platform + offers API calls and metrics.
+- [**Theneo**](https://www.theneo.io/):
+paid Stripe-like API doc generator service.
+- [**Redocly**](https://redocly.com/):
+Docs-like-code with integrated delivery pipeline
 
 
 
+## API Testing
 
+API testing and its automation is a crucial part
+of the API development lifecycle.
+It helps avoid [regressions](https://en.wikipedia.org/wiki/Software_regression)
+and make sure our API performs 
+*the way it's supposed to*, 
+meaning it returns *exactly what we want*
+and with appropriate response times.
 
-DESIGN GUIDE
-https://www.restapitutorial.com/lessons/restquicktips.html
+Testing needs to cover
+the most important aspects 
+of an API - 
+those being **performance**,
+**availability** and **functionality**.
+
+- **Functionality testing** checks
+if the API works and does exactly what it's supposed to do.
+- **Reliability testing** checks if
+API can be consistently connected to and lead to consistent results.
+- **Load testing** checks if
+the API can handle a large amount of requests.
+
+Luckily, there are many testing frameworks
+that make it easy for developers to create test suites,
+execute and integrate them in CI pipelines.
+
+Here's a list of frameworks 
+we recommend using.
+All of these might have paid plans 
+but also have free plans for single developers 
+(unless explicitly stated otherwise).
+
+- [**SoapUI**](https://www.soapui.org/tools/soapui/):
+*open-source* testing tool
+that covers the entire testing spectrum 
+(functional, security, load and mocking).
+- [**Postman**](https://www.postman.com/): 
+Postman is a full API platform that is not limited to testing.
+Besides managing different collaboratively APIs, 
+creating Open API specifications,
+documentation
+and monitoring.
+- [**Locust**](https://locust.io/):
+free, open-source load testing tool.
+Swarm an API endpoint with Python with millions
+of simultaneous users.
+[Can be integrated with Github Actions](https://github.com/marketplace/actions/locust-load-test).
+- [**Apache JMeter**](https://jmeter.apache.org/)
+and [**Apache AB**](https://httpd.apache.org/docs/2.4/programs/ab.html)
+are a load tester and HTTP server benchmarking tool, 
+respectfully. 
+- [**Siege**](https://github.com/JoeDog/siege)
+is an open-source API regression tester 
+and benchmark utility.
+- [**Gatling**](https://gatling.io/):
+*paid* API load tester designed for Devops and CI/CD.
+- [**Katalon**](https://katalon.com/):
+quality management platform for
+validation, functional, security and load testing APIs.
+
+## API Monitoring
+
+API monitoring is extremely important to manage uptime
+and possible performance degradation/
+general API behaviour.
+
+Having access to these metrics
+is critical not only for debugging purposes
+but to make calculated decisions 
+that will affect the revenue/bottomline of your project.
+
+With performance monitoring,
+you will gain insights of how developers are using your API,
+which endpoints are most frequently used.
+This can provide a better understanding of areas
+that need improvement.
+
+There are two predominant methods of API monitoring:
+- [**Synthetic monitoring**](https://www.dynatrace.com/news/blog/what-is-synthetic-monitoring/)
+is a performance monitoring practice that 
+*emulates the paths users might take* 
+when engaging with an application.
+- [**Real User Monitorimg (RUM)**](https://en.wikipedia.org/wiki/Real_user_monitoring) monitors *how a user interacts with the API*,
+instead of emulating them.
+In layman's terms, it "records" the journey
+of the user along the API calls
+and makes it easy to *zero in* on
+which step is failing.
+
+There are some frameworks that are free and others
+that open-source (or both!)
+that allow you to use these two methods.
+and you can use in to track the health of your API,
+whilst attaining useful insights for analytical and debugging purposes.
+
+Here's a comprehensive list of frameworks
+that you can integrate with your API to monitor it.
+Each one has a free plan that you can use.
+
+- [**Grafana**](https://grafana.com/products/cloud/features/#synthetic-monitoring):
+Grafana is an open-source, full-stack platform
+that allows you to visualize, alert 
+and understand metrics of your API.
+- [**Fusio Project**](https://www.fusio-project.org/):
+open-source API management platform.
+- [**Checkly**](https://www.checklyhq.com/):
+monitoring and validation of site transactions.
+Collects logs and error traces.
+- [**Uptime Kuma**](https://uptime.kuma.pet/):
+an open-source, self-hosted monitoring tool.
+- [**Cronitor**](https://cronitor.io/):
+platform to monitor uptime and performance,
+with locations worldwide.
+- [**Blackbox Exporter**](https://github.com/prometheus/blackbox_exporter):
+allows blackbox probing of endpoints
+over HTTP, HTTPS, DNS, TCP, ICMP and gRPC.
+- [**Swagger**](https://swagger.io/):
+Swagger not only allows you to create,
+test and document your API,
+but also monitor it.
+
+## References
+
+If you are looking for more information 
+and guidelines to design your API,
+do check these links for more in-depth knowledge:
+
++ Best Practices for Designing a Pragmatic RESTful API (***Great*** article):
+http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
++ RESTful web API design by Microsoft:
 https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
++ REST API Design Best Practices Handbook:
 https://www.freecodecamp.org/news/rest-api-design-best-practices-build-a-rest-api/
++ API design guide by Google:
 https://cloud.google.com/apis/design
 
 
-
-
-## links
-+ Best Practices for Designing a Pragmatic RESTful API (***Great*** article)
-http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
-+ REST+JSON API Design - Best Practices for Developers
-http://youtu.be/hdSrT4yjS1g (*comprehensive* overview)
-+ Secure Your API - Tips for REST + JSON Developers
-http://youtu.be/FeSdFhsKGG0
-
-
-
-
-
-## General Background Reading + Watching
+# Further General Background Reading + Watching
 
 + What is an API? (very basic intro): http://youtu.be/B9vPoCOP7oY
 + **BASIC** Introduction to APIs by [Derek Dahmer](https://github.com/ddgromit)
-@ General Assembly:  
-https://www.youtube.com/watch?v=FknvOGcLHmc (Google for Entrepreneurs - *absolute beginner*?)
 + Wikipedia: http://en.wikipedia.org/wiki/Application_programming_interface
 + The REST Cookbook: http://restcookbook.com (comprehensive guide)
 + How to Design Great APIs - Parse:
@@ -1139,12 +1337,8 @@ https://www.youtube.com/watch?v=qCdpTji8nxo
 + How To Design A Good API and ***Why it Matters***:
 http://youtu.be/heh4OeB9A-c + http://lcsd05.cs.tamu.edu/slides/keynote.pdf
 (mostly related to the Java Language API but a few general insights)
-+ Best practices (mostly relating to library APIs not REST/Stream):
-http://stackoverflow.com/questions/2619854/best-practices-and-guidelines-for-designing-an-api
 + Parse ***interactive*** API reference:
 http://youtu.be/qCdpTji8nxo?t=21m15s
-+ Principals of good RESTful API design:
-http://codeplanet.io/principles-good-restful-api-design/
 + Building Hypermedia APIs with HTML5 and Node:
 http://www.amazon.com/Building-Hypermedia-APIs-HTML5-Node/dp/1449306578
 + Designing APIs for Asynchrony:
@@ -1156,6 +1350,3 @@ http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony
 http://www.restapitutorial.com/
 + API Design Guidelines:
 http://apistylebook.com/design/guidelines/
-+ Public Vs Private APIs:
-https://www.upwork.com/hiring/development/public-apis-vs-private-apis-whats-the-difference/
-+ Learn to work with APIs: https://workwithapis.com
