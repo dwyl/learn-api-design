@@ -1231,6 +1231,11 @@ Besides managing different collaboratively APIs,
 creating Open API specifications,
 documentation
 and monitoring.
+- [**Insomnia**](https://insomnia.rest/):
+similar to Postman, it's a API platform
+to design and test APIs with built-in automation.
+You can learn more on how to use it
+in our [`learn-insomnia`](https://github.com/dwyl/learn-insomnia) repository.
 - [**Locust**](https://locust.io/):
 free, open-source load testing tool.
 Swarm an API endpoint with Python with millions
