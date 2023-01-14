@@ -6,7 +6,7 @@ Essential learning for people building an API
 that is performant, scalable and maintainable.
 
 [![HitCount](https://hits.dwyl.com/dwyl/learn-api-design.svg?style=flat-square&show=unique)](http://hits.dwyl.com/dwyl/learn-api-design)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/learn-api-design/issues)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/learn-api-design/issues)
 
 
 ![Grandma Remote](https://user-images.githubusercontent.com/194400/212458660-94a5a5c1-3339-4b9b-b17d-a450ac4d589e.png)
@@ -43,11 +43,10 @@ and make your `API` the best it can be!
     - [RPC](#rpc)
     - [`SOAP`](#soap)
     - [`REST`](#rest)
-      - [What is a RESTful web service?](#what-is-a-restful-web-service)
+      - [What is a `RESTful` web service?](#what-is-a-restful-web-service)
       - [Using HTTP Methods for `RESTful` Services](#using-http-methods-for-restful-services)
     - [Examples of Successful (Good) `RESTful` APIs](#examples-of-successful-good-restful-apis)
-    - [Realtime APIs](#realtime-apis)
-      - [WebSockets](#websockets)
+    - [Realtime APIs: `WebSockets`](#realtime-apis-websockets)
       - [Examples of Realtime APIs](#examples-of-realtime-apis)
 - [`RESTful` API Design and Best Practices](#restful-api-design-and-best-practices)
   - [Provide sensible `Resource` names](#provide-sensible-resource-names)
@@ -83,7 +82,7 @@ and make your `API` the best it can be!
 
 # Why? 🤷‍♀️
 
-Having a *great* API will make or break your project/product.
+Having a *great* API will make or break your project/product. <br />
 We expect a **_significant_ percentage**
 of the **`people`** using our `App` 
 to access the `API` 
@@ -91,7 +90,7 @@ either for automation -
 e.g: via a Voice Assistant -
 or simply to extract, analyze & visualize their data in interesting ways.
 in many ways, we think 
-[_The **`API` is** the **Product**_!](https://github.com/dwyl/app/issues/273)
+[_the **`API` is** the **Product**_!](https://github.com/dwyl/app/issues/273)
 
 With that in mind, 
 we want to research and learn
@@ -102,7 +101,9 @@ so others can learn from our quest!
 # Who? 🤓
 
 This guide is meant as both 
-an **_internal_ reference** for us **`@dwyl`** <br />
+an **_internal_ reference** for us **`@dwyl`**; 
+everyone in the team/community should read, 
+understand and attempt to _improve/extend_ it ... <br />
 and a **_fully_ Open Source resource** 
 that _anyone_ can read and learn from.
 
@@ -289,7 +290,7 @@ The response is a `JSON` object
 that can be interpreted in _any_ programming language.
 
 
-#### What is a RESTful web service?
+#### What is a `RESTful` web service?
 
 ![restful API](https://i.imgur.com/xKXnKGT.jpg)
 
@@ -351,10 +352,10 @@ and each operation is invoked by these verbs.
 
 > The word "**idempotence**" may be funky
 but it represents a rather simple concept.
-For a RESTful service standpoint,
+For a `RESTful` service standpoint,
 for an operation to be *idempotent*,
-clients can make the same call repeatedly while producing the same result.
->
+clients can make the same call repeatedly 
+while producing the same result.
 > The `GET` or `PUT` operation on a `users/12345` URI,
 for example, are great examples of this.
 Each time they are called, the same result is yielded.
@@ -362,7 +363,7 @@ Each time they are called, the same result is yielded.
 Each operation concerns to a *resource*,
 which in turn is identified/located 
 through an *URI*.
-Here's how these operations are applied to resources.
+Here's how these operations are applied to resources:s
 
 + **GET** /comment - Returns a list of all comments
 + **GET** /comment/:id - Returns a comment with the given id
@@ -392,43 +393,33 @@ and comprehensive guides.
 Here is a list of examples of public `RESTful` APIs
 that have *awesome* documentation.
 
-+ Parse REST API: http://docs.parseplatform.org/rest/guide/
++ Parse REST API: 
+[docs.parseplatform.org/rest/guide](http://docs.parseplatform.org/rest/guide/)
 (really good example of good interactive documentation)
-+ GitHub: https://developer.github.com/
-+ Twitter: https://developer.twitter.com/en/docs
-+ Google: https://developers.google.com/custom-search/v1/using_rest
-+ Stripe: https://stripe.com/docs/api
-+ Twilio: https://www.twilio.com/docs/usage/api
++ GitHub:
+[developer.github.com](https://developer.github.com/) 
++ Twitter:
+[developer.twitter.com](https://developer.twitter.com/en/docs)
++ Google:
+[developers.google.com/custom-search](https://developers.google.com/custom-search/v1/using_rest)
++ Stripe:
+[stripe.com/docs/api](https://stripe.com/docs/api)
++ Twilio:
+[twilio.com/docs/usage/api](https://www.twilio.com/docs/usage/api)
 
 
-### Realtime APIs
+### Realtime APIs: `WebSockets`
 
-The APIs above are `RESTful`, thus representing resource-based APIs.
-As you know, these work over the `HTTP` protocol, which is stateless.
-This is ideal for application that need to perform actions on resources
-and are request-driven.
-This is most adequate for most web apps, cloud apps and microservices
-we see everyday.
-
-*However*, these are not particularly good nor performant
-when applied to **realtime scenarios** - 
-for example, a live score sports app.
-Since `REST` APIs use `HTTP`, there is bigger overhead per message,
-leading to increased latency and higher CPU usage.
-
-**Realtime APIs** exist but they don't use the `HTTP` protocol.
-*They use `WebSockets`*.
-
-#### WebSockets
-
-A [**WebSocket**](https://ably.com/topic/websockets)
-is a realtime protocol that enables bidirectional communication
-between a web client and a webserver
+A [**WebSocket**](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
+is a realtime protocol that enables **_bidirectional_ communication**
+between a web client and a web server
 over a single-socket connection.
+Excellent Deep Dive:
+https://ably.com/topic/websockets
 
 Similarly to `HTTP`, `WebSocket` works on top of the TCP, 
 in the *application layer*. 
-However, unlike HTTP, *they are stateful*,
+However, unlike `HTTP`, *they are stateful*,
 which makes them highly suitable for 
 event-driven services that require **high-frequency communication**. 
 
@@ -454,8 +445,8 @@ about WebSockets,
 you should visit our [`learn-websockets`](https://github.com/dwyl/learn-websockets)
 repo for a more comprehensive introduction.
 
-Additionally, here are some useful resources
-if you want to expand knowledge about this topic.
+A few useful resources
+if you want to expand knowledge about this topic:
 
 + **Q**: Can we use WebSockets? http://caniuse.com/#feat=websockets  
 **Answer**: ***YES***! IE 10+, Safari/iOS Safari 7.1+, Android 4.4+ & Android Chrome
@@ -472,8 +463,8 @@ http://stackoverflow.com/questions/10161796/how-many-users-nodejs-socket-io-can-
 
 #### Examples of Realtime APIs
 
-One of the biggest usages of realtime APIs
-is in the financing world - 
+One of the biggest uses of realtime APIs
+is in the finance world - 
 specifically stock/options/crypto trading.
 
 [`Polygon.io`](https://polygon.io/)
@@ -484,7 +475,7 @@ They offer a `RESTful` API
 but also [provide a **`WebSocket API`**](https://polygon.io/docs/stocks/ws_getting-started),
 where the user connects to a 
 *WebSocket URI* (e.g. `wss://socket.polygon.io/stocks`)
-and receives data as the stock prices change overtime per minute.
+and receives data as the stock prices change in near real-time.
 
 The response object of this API doesn't differ from the "regular ones".
 The previous endpoint returns a response object
@@ -493,7 +484,7 @@ with a `JSON` format:
 ```json
 {
   "ev": "AM",
-  "sym": "GTE",
+  "sym": "GME",
   "v": 4110,
   "av": 9470157,
   "op": 0.4372,
@@ -520,7 +511,8 @@ there are other examples worth mentioning:
 https://dev.twitter.com/streaming/overview
 + Salesforce Streaming API:
 http://www.salesforce.com/developer/docs/api_streaming/
-+ Google Real Time Reporting API: https://developers.google.com/analytics/devguides/reporting/realtime/v3
++ Google Real Time Reporting API: 
+https://developers.google.com/analytics/devguides/reporting/realtime/v3
 
 ----------------
 
