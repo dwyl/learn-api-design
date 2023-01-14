@@ -1,6 +1,6 @@
 <div align="center">
 
-# Learn API Design
+# Learn API Design 🏙️
 
 Essential learning for people building an API
 that is performant, scalable and maintainable.
@@ -9,27 +9,120 @@ that is performant, scalable and maintainable.
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/learn-api-design/issues)
 
 
-![Grandma Remote](https://i.imgur.com/pdrRPjm.jpg)
+![Grandma Remote](https://user-images.githubusercontent.com/194400/212458660-94a5a5c1-3339-4b9b-b17d-a450ac4d589e.png)
 
 </div>
 
 
 Joking aside, ***starting*** a project "***from scratch***" is a ***opportunity***
-(and *privilege*) ***few people get***.  
-If you are ***fortunate*** enough to be
-in that position, ***do not take*** the **task** ***lightly***.
+(and *privilege*) ***few people get***;
+it's a ***Golden Ticket***!
 
 <div align="center">
 
-![golden ticket](https://i.imgur.com/U6a5SCh.jpg)
+![golden ticket](https://user-images.githubusercontent.com/194400/212458878-6c46ef76-ee69-4b20-9f11-360453d52c3a.png)
 
 </div>
 
-Building the *interface* for a new project is nothing short of a ***Golden Ticket***! So do your homework *before* you start!
+If you are ***fortunate*** enough to be
+in that position, ***do not take*** the **task** ***lightly***.
+Do your homework _before_ you start! 
+Learn from as many experienced people as possible
+and make your `API` the best it can be!
 
-## Intro
+<br />
+
+- [Learn API Design 🏙️](#learn-api-design-️)
+- [Why? 🤷‍♀️](#why-️)
+- [Who? 🤓](#who-)
+- [What? 💭](#what-)
+  - [Guiding Quotes 💭](#guiding-quotes-)
+  - [Characteristics of a Good API](#characteristics-of-a-good-api)
+  - [Example: `Twitter`](#example-twitter)
+  - [Types of `API` (Quick History Lesson)](#types-of-api-quick-history-lesson)
+    - [RPC](#rpc)
+    - [`SOAP`](#soap)
+    - [`REST`](#rest)
+      - [What is a RESTful web service?](#what-is-a-restful-web-service)
+      - [Using HTTP Methods for `RESTful` Services](#using-http-methods-for-restful-services)
+    - [Examples of Successful (Good) `RESTful` APIs](#examples-of-successful-good-restful-apis)
+    - [Realtime APIs](#realtime-apis)
+      - [WebSockets](#websockets)
+      - [Examples of Realtime APIs](#examples-of-realtime-apis)
+- [`RESTful` API Design and Best Practices](#restful-api-design-and-best-practices)
+  - [Provide sensible `Resource` names](#provide-sensible-resource-names)
+  - [Use adequate `HTTP` response codes to indicate status](#use-adequate-http-response-codes-to-indicate-status)
+  - [Use `query parameters` to filter, sort or search resources](#use-query-parameters-to-filter-sort-or-search-resources)
+      - [Filtering and sorting](#filtering-and-sorting)
+      - [Searching](#searching)
+      - [Limit fields returned in the `JSON ` response](#limit-fields-returned-in-the-json--response)
+  - [Show meaningful Errors](#show-meaningful-errors)
+  - [Favour `JSON` over `XML` support](#favour-json-over-xml-support)
+  - [Avoid chattiness in your API](#avoid-chattiness-in-your-api)
+  - [*Consider* `connectedness`](#consider-connectedness)
+  - [Always use `SSL`](#always-use-ssl)
+  - [Lint your responses and add `gzip` support](#lint-your-responses-and-add-gzip-support)
+  - [Accept `JSON` in `POST`, `PATCH`, `PUT` bodies](#accept-json-in-post-patch-put-bodies)
+  - [Pagination](#pagination)
+  - [Rate Limiting](#rate-limiting)
+  - [Caching](#caching)
+  - [Versioning your API?](#versioning-your-api)
+    - [URI versioning](#uri-versioning)
+    - [Header versioning](#header-versioning)
+    - [Media type versioning](#media-type-versioning)
+    - [Which one should I choose?](#which-one-should-i-choose)
+  - [API Documentation](#api-documentation)
+    - [`RESTful` API documentation tools](#restful-api-documentation-tools)
+  - [API Testing](#api-testing)
+  - [API Monitoring](#api-monitoring)
+  - [References](#references)
+- [Further General Background Reading + Watching](#further-general-background-reading--watching)
+
+
+<br />
+
+# Why? 🤷‍♀️
 
 Having a *great* API will make or break your project/product.
+We expect a **_significant_ percentage**
+of the **`people`** using our `App` 
+to access the `API` 
+either for automation -
+e.g: via a Voice Assistant -
+or simply to extract, analyze & visualize their data in interesting ways.
+in many ways, we think 
+[_The **`API` is** the **Product**_!](https://github.com/dwyl/app/issues/273)
+
+With that in mind, 
+we want to research and learn
+how to build the best `API` we possibly can
+and document as much as possible
+so others can learn from our quest!
+
+# Who? 🤓
+
+This guide is meant as both 
+an **_internal_ reference** for us **`@dwyl`** <br />
+and a **_fully_ Open Source resource** 
+that _anyone_ can read and learn from.
+
+As always, if you find it helpful/useful please star the repo on GitHub ⭐ 🙏 Thanks!
+
+If you get stuck or have any questions/suggestions,
+please [open an issue](https://github.com/dwyl/learn-api-design/issues).
+
+
+# What? 💭
+
+The term **`API`**
+stands for 
+"**Application Programming Interface**" 
+~ 
+[wikipedia.org/wiki/API](https://en.wikipedia.org/wiki/API)
+An `API` is a **way of communicating with a system _programmatically_**.
+It is a structured way for one program to offer services to other programs.
+
+## Guiding Quotes 💭
 
 A few ***quotes*** from
 [**Joshua Bloch**](http://en.wikipedia.org/wiki/Joshua_Bloch)'s
@@ -73,49 +166,48 @@ and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](http://parseplatform.
 + Appropriate to ***audience*** (*make it beginner friendly*...)
 + ***Opinionated*** (means people don't have to *think*)
 
-## But wait... what is an API, after all?
-
-The term `API` itself is quite generic and in layman's terms, 
-an API is just a **way of communicating with an interface programmatically**.
-It is a structured way for one program to offer services to other programs.
+## Example: `Twitter`
 
 Let's take the example of the 
 [`Twitter API`](https://developer.twitter.com/en/docs/platform-overview).
 We could use it to write a bot that displays the top tweets of the day.
-We, as users of the API, 
-don't need to know about the internal details
+We, as users of the `API`, 
+don't need to know about the _internal_ details
 of Twitter's systems, 
 nor does Twitter want us to.
-But using their API, we  are able to do specific things
+But using their `API`, 
+we are able to do specific/pre-defined things
 (like making a post or reading a timeline).
-**Twitter is exposing us features through an interface
-that we can consume**.
+**Twitter is exposing features to us
+through an interface that we can consume**.
 
 If you've been around the web,
 you might have noticed that most of these APIs
-served by big companies like [`Google`](https://cloud.google.com/apis/docs/overview)
-or [`Microsoft`](https://developer.microsoft.com/en-us/graph)
+served by big companies like 
+[`Google`](https://cloud.google.com/apis/docs/overview)
+or 
+[`Microsoft`](https://developer.microsoft.com/en-us/graph)
 are often referred to as `REST API`s.
 
 Let's figure out what this is! 😉
 
 
-## Types of API
+## Types of `API` (Quick History Lesson)
 
-An API comes in different forms.
-When a developer get down to building an API,
+An `API` comes in different forms.
+When a developer get down to building an `API`,
 they first decide which specification to use.
 Most of the time, they go for `REST`.
-But, analysing product requirements, 
+But, analyzing product requirements, 
 a tech team may come to the conclusion 
 that calls for a different approach.
 
-`RESTful` APIs weren't always the *de facto* way of building APIs.
+`RESTful` `APIs` weren't always the *de facto* way of building `APIs`.
 In fact, there is an historical precedence to it.
 
 ### RPC
 
-The earliest and simplest form of an API
+The earliest and simplest form of an `API`
 was **`RPC` Remote Procedure Call**,
 hailing from the 80's.
 
@@ -131,33 +223,31 @@ This conversion is made inside **stubs**.
 <img width="1418" alt="workflow RPC" src="https://user-images.githubusercontent.com/17494745/209990909-d2996bea-3162-4915-941d-944773505be4.png">
 
 `RPC` started with `XML` and later `JSON`-based versions.
-However, in 2015, Google created [`gRPC`](https://grpc.io/),
+However, in 2015, Google created 
+[`gRPC`](https://grpc.io/),
 a general-purpose `RPC` framework.
-Systems like Facebok's [`Apache Thrift`](https://thrift.apache.org/)
-or Twitch's [`Twirp`](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f/)
-use `gRPC` for internal communication between microservices.
+Systems like 
+[`Apache Thrift`](https://thrift.apache.org/)
+or Twitch's 
+[`Twirp`](https://blog.twitch.tv/en/2018/01/16/twirp-a-sweet-new-rpc-framework-for-go-5f2febbf35f/)
+use `gRPC` for internal communication between (micro)services.
 
-In these services, as *millions* of calls are made per-day,
-it takes a **really** performant API to optimize the network layer,
-and `RPC` style is suitable for these scenarios,
-because of its short and lightweight messages, 
-it *goes easy on the network*, making it fast 💨.
 
-### SOAP 
+### `SOAP`
 
-In 1999, a year after `RPC` was created it,
-Microsoft scrubbed it away with [`SOAP`](https://en.wikipedia.org/wiki/SOAP) - 
+In 1999, engineers at
+Microsoft created [`SOAP`](https://en.wikipedia.org/wiki/SOAP#History) - 
 **Simple Object Access Protocol**.
 
 Initially, `XML` `RPC` had a problem - 
 it didn't distinguish between data types.
-So devs had to add additional metadata to label a field with a data type.
+So devs had to add additional metadata 
+to label a field with a data type.
 Aiming for consistency, 
 `SOAP` carved the format of the transmitted message *in stone*.
 It was informative but *rather verbose*.
 
 <img width="1413" alt="soap" src="https://user-images.githubusercontent.com/17494745/209992355-6bb307a5-52fb-47c7-8718-edd6811c3621.png">
-
 
 A `SOAP` message **is framed with an envelope tag** 
 (root element that starts and ends the message),
@@ -165,12 +255,12 @@ A `SOAP` message **is framed with an envelope tag**
 
 Although `SOAP` is not as popular as `REST`,
 it's still around, especially in financial services.
-This is because it is **secure** 
+This is because it uses
 ([`WS-Security`](https://en.wikipedia.org/wiki/WS-Security)).
-`SOAP WS-Security extension` encrypts a message 
+`SOAP WS-Security extension` to encrypt messages
 and only the recipient with a security token can read it.
 
-### REST
+### `REST`
 
 **Representational State Transfer** (**REST**) is a software architecture
 style consisting of guidelines and best practices for creating
@@ -182,24 +272,21 @@ When people use the term `REST API`,
 they are referring to an API accessed via `HTTP` protocol
 at a predefined set of URLs.
 
-Whilst `SOAP` allows for stateful interactions 
-(where the server is aware of previous requests),
-`RESTful` APIs are **stateless**, 
-thus treating every request as new.
+Whilst `SOAP` allows for _stateful_ interactions -
+where the server is aware of _previous_ requests -
+`RESTful` APIs are **_stateless_**, 
+thus treating every request as distinct.
 
 `RESTful` APIs are **resource-based**, 
 meaning the user is manipulating 
 (creating, updating, deleting or fetching) resources.
-You can see an example of this
-with Microsoft's [`Graph Explorer API`](https://developer.microsoft.com/en-us/graph/graph-explorer).
 
-<img width="1214" alt="graphAPI" src="https://user-images.githubusercontent.com/17494745/209994353-a2c94374-720b-4b7e-b4e7-aa1409f71165.png">
-
-When using this API,
-we are accessing the **URI - Uniform Resource Identifier**
-and doing **an action** - 
-a `GET` `HTTP`(fetching) request.
-The response is a `JSON` with the profile of the user.
+When using a `RESTful API`,
+we are specifying the **URI - Uniform Resource Identifier**
+and performing **an action** - 
+e.g: `GET` `HTTP`(fetching) request.
+The response is a `JSON` object
+that can be interpreted in _any_ programming language.
 
 
 #### What is a RESTful web service?
