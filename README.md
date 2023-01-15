@@ -38,7 +38,6 @@ and make your `API` the best it can be!
 - [What? 💭](#what-)
   - [Guiding Quotes 💭](#guiding-quotes-)
   - [Characteristics of a Good API](#characteristics-of-a-good-api)
-  - [Example: `Twitter`](#example-twitter)
   - [Types of `API` (Quick History Lesson)](#types-of-api-quick-history-lesson)
     - [RPC](#rpc)
     - [`SOAP`](#soap)
@@ -46,7 +45,8 @@ and make your `API` the best it can be!
       - [What is a `RESTful` web service?](#what-is-a-restful-web-service)
       - [Using HTTP Methods for `RESTful` Services](#using-http-methods-for-restful-services)
     - [Examples of Successful (Good) `RESTful` APIs](#examples-of-successful-good-restful-apis)
-    - [Realtime APIs: `WebSockets`](#realtime-apis-websockets)
+      - [`Twitter`](#twitter)
+  - [Realtime APIs: `WebSockets`](#realtime-apis-websockets)
       - [Examples of Realtime APIs](#examples-of-realtime-apis)
 - [`RESTful` API Design and Best Practices](#restful-api-design-and-best-practices)
   - [Provide sensible `Resource` names](#provide-sensible-resource-names)
@@ -166,31 +166,6 @@ and [Kevin Lacker](https://twitter.com/lacker)'s ([@Parse](http://parseplatform.
 + Easy to ***evolve*** (*the simpler the initial API the easier it will be to extend*)
 + Appropriate to ***audience*** (*make it beginner friendly*...)
 + ***Opinionated*** (means people don't have to *think*)
-
-## Example: `Twitter`
-
-Let's take the example of the 
-[`Twitter API`](https://developer.twitter.com/en/docs/platform-overview).
-We could use it to write a bot that displays the top tweets of the day.
-We, as users of the `API`, 
-don't need to know about the _internal_ details
-of Twitter's systems, 
-nor does Twitter want us to.
-But using their `API`, 
-we are able to do specific/pre-defined things
-(like making a post or reading a timeline).
-**Twitter is exposing features to us
-through an interface that we can consume**.
-
-If you've been around the web,
-you might have noticed that most of these APIs
-served by big companies like 
-[`Google`](https://cloud.google.com/apis/docs/overview)
-or 
-[`Microsoft`](https://developer.microsoft.com/en-us/graph)
-are often referred to as `REST API`s.
-
-Let's figure out what this is! 😉
 
 
 ## Types of `API` (Quick History Lesson)
@@ -407,8 +382,24 @@ that have *awesome* documentation.
 + Twilio:
 [twilio.com/docs/usage/api](https://www.twilio.com/docs/usage/api)
 
+#### `Twitter`
 
-### Realtime APIs: `WebSockets`
+The 
+[`Twitter API`](https://developer.twitter.com/en/docs/platform-overview).
+allows developers to query tweets by person, topic, tag or trends.
+We could use it to write a bot that displays the top tweets of the day.
+As users of the `API`, 
+we don't need to know about the _internal_ details
+of Twitter's systems, 
+nor does Twitter want us to.
+But using their `API`, 
+we are able to do specific/pre-defined things
+(like making a post or reading a timeline).
+**Twitter is exposing features to us
+through an interface that we can consume**.
+
+
+## Realtime APIs: `WebSockets`
 
 A [**WebSocket**](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
 is a realtime protocol that enables **_bidirectional_ communication**
@@ -540,7 +531,8 @@ For example:
 /customers/12345/orders
 ```
 
-Here's a few tips:
+Here are a few tips:
+
 - use identifiers in your URLs instead of query params.
 *Query params* are **awesome for filtering**, not for resource names.
     - `/customers/12345` ✅
