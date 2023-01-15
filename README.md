@@ -47,7 +47,7 @@ and make your `API` the best it can be!
     - [Examples of Successful (Good) `RESTful` APIs](#examples-of-successful-good-restful-apis)
       - [`Twitter`](#twitter)
   - [Realtime APIs: `WebSockets`](#realtime-apis-websockets)
-      - [Examples of Realtime APIs](#examples-of-realtime-apis)
+    - [Examples of Realtime APIs](#examples-of-realtime-apis)
 - [`RESTful` API Design and Best Practices](#restful-api-design-and-best-practices)
   - [Provide sensible `Resource` names](#provide-sensible-resource-names)
   - [Use adequate `HTTP` response codes to indicate status](#use-adequate-http-response-codes-to-indicate-status)
@@ -452,7 +452,7 @@ http://www.sitepoint.com/introduction-to-the-html5-websockets-api/
 http://stackoverflow.com/questions/10161796/how-many-users-nodejs-socket-io-can-support
 
 
-#### Examples of Realtime APIs
+### Examples of Realtime APIs
 
 One of the biggest uses of realtime APIs
 is in the finance world - 
