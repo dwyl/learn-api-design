@@ -1302,6 +1302,12 @@ Besides managing different collaboratively APIs,
 creating Open API specifications,
 documentation
 and monitoring.
+- [**Hoppscotch**](https://hoppscotch.io/): 
+Previously called "Postwoman", 
+it's a free, open-source alternative to Postman,
+with many of the same features of the latter.
+This tool can be used for defining,
+documenting and testing your API.
 - [**Insomnia**](https://insomnia.rest/):
 similar to Postman, it's a API platform
 to design and test APIs with built-in automation.
